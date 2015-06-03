@@ -58,11 +58,29 @@
                                 </attributedString>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Login to Udacity" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZvV-Ux-EFw">
+                                <rect key="frame" x="150" y="242" width="300" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Don't have an acount? Sign up" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hg-7a-q2j">
+                                <rect key="frame" x="159" y="405" width="300" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.70660186408702341" green="0.89529578877005345" blue="0.52676697325651789" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="UqT-XR-l5L" secondAttribute="centerX" id="6hJ-Ud-8cH"/>
                             <constraint firstAttribute="centerX" secondItem="WfM-xo-kCr" secondAttribute="centerX" id="Siu-CR-Whd"/>
+                            <constraint firstAttribute="centerX" secondItem="9hg-7a-q2j" secondAttribute="centerX" constant="-9" id="W8E-Is-lOZ"/>
+                            <constraint firstAttribute="centerX" secondItem="ZvV-Ux-EFw" secondAttribute="centerX" id="Whu-bx-lLH"/>
                             <constraint firstAttribute="centerX" secondItem="qdP-Mx-K92" secondAttribute="centerX" id="ZQo-Ez-uLy"/>
                         </constraints>
                     </view>
