@@ -36,7 +36,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qdP-Mx-K92">
                                 <rect key="frame" x="150" y="361" width="300" height="36"/>
-                                <color key="backgroundColor" red="0.55001314374068022" green="0.77241161616161613" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.50625787722088467" green="0.69451500297088531" blue="0.38251633434484555" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
                                         <fragment content="Login">
@@ -79,7 +79,7 @@
                                     <rect key="frame" x="50" y="240" width="300" height="30"/>
                                 </variation>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="DGX-go-0Fv">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="DGX-go-0Fv">
                                 <rect key="frame" x="257" y="40" width="115" height="115"/>
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="88" y="28" width="225" height="225"/>
@@ -90,14 +90,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="50" y="405" width="300" height="30"/>
                                 </variation>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.70660186408702341" green="0.89529578877005345" blue="0.52676697325651789" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.62080096862090473" green="0.8477411987522282" blue="0.54297577659039775" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="qdP-Mx-K92" firstAttribute="top" secondItem="UqT-XR-l5L" secondAttribute="bottom" constant="6" id="1aw-9i-cOc"/>
                             <constraint firstItem="9hg-7a-q2j" firstAttribute="top" secondItem="qdP-Mx-K92" secondAttribute="bottom" constant="8" id="21c-he-mUF"/>
