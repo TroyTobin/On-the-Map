@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,7 +19,7 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqT-XR-l5L">
                                 <rect key="frame" x="150" y="323" width="300" height="30"/>
-                                <color key="backgroundColor" red="0.85619413171889125" green="0.95527053624480096" blue="0.73910774881556707" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.81670149520000002" green="0.9133868557" blue="0.7016472883" alpha="1" colorSpace="calibratedRGB"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Password">
                                         <attributes>
@@ -29,6 +30,9 @@
                                     </fragment>
                                 </attributedString>
                                 <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="50" y="325" width="300" height="30"/>
+                                </variation>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qdP-Mx-K92">
                                 <rect key="frame" x="150" y="361" width="300" height="36"/>
@@ -43,10 +47,13 @@
                                         </fragment>
                                     </attributedString>
                                 </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="50" y="361" width="300" height="36"/>
+                                </variation>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WfM-xo-kCr">
                                 <rect key="frame" x="150" y="285" width="300" height="30"/>
-                                <color key="backgroundColor" red="0.85619413171889125" green="0.95527053624480096" blue="0.73910774881556707" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.81670149522353053" green="0.91338685568924538" blue="0.70164728825888523" alpha="1" colorSpace="calibratedRGB"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Email">
                                         <attributes>
@@ -57,6 +64,9 @@
                                     </fragment>
                                 </attributedString>
                                 <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="50" y="286" width="300" height="30"/>
+                                </variation>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Login to Udacity" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZvV-Ux-EFw">
                                 <rect key="frame" x="150" y="242" width="300" height="30"/>
@@ -65,7 +75,16 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="50" y="240" width="300" height="30"/>
+                                </variation>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="DGX-go-0Fv">
+                                <rect key="frame" x="257" y="40" width="115" height="115"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="88" y="28" width="225" height="225"/>
+                                </variation>
+                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Don't have an acount? Sign up" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hg-7a-q2j">
                                 <rect key="frame" x="159" y="405" width="300" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -73,20 +92,96 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="50" y="405" width="300" height="30"/>
+                                </variation>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.70660186408702341" green="0.89529578877005345" blue="0.52676697325651789" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="UqT-XR-l5L" secondAttribute="centerX" id="6hJ-Ud-8cH"/>
-                            <constraint firstAttribute="centerX" secondItem="WfM-xo-kCr" secondAttribute="centerX" id="Siu-CR-Whd"/>
-                            <constraint firstAttribute="centerX" secondItem="9hg-7a-q2j" secondAttribute="centerX" constant="-9" id="W8E-Is-lOZ"/>
-                            <constraint firstAttribute="centerX" secondItem="ZvV-Ux-EFw" secondAttribute="centerX" id="Whu-bx-lLH"/>
-                            <constraint firstAttribute="centerX" secondItem="qdP-Mx-K92" secondAttribute="centerX" id="ZQo-Ez-uLy"/>
+                            <constraint firstItem="qdP-Mx-K92" firstAttribute="top" secondItem="UqT-XR-l5L" secondAttribute="bottom" constant="6" id="1aw-9i-cOc"/>
+                            <constraint firstItem="9hg-7a-q2j" firstAttribute="top" secondItem="qdP-Mx-K92" secondAttribute="bottom" constant="8" id="21c-he-mUF"/>
+                            <constraint firstItem="UqT-XR-l5L" firstAttribute="top" secondItem="WfM-xo-kCr" secondAttribute="bottom" constant="8" id="2d9-PX-Aas"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UqT-XR-l5L" secondAttribute="trailing" constant="34" id="3dJ-LQ-3OQ"/>
+                            <constraint firstAttribute="centerX" secondItem="UqT-XR-l5L" secondAttribute="centerX" id="GBo-dn-PXl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZvV-Ux-EFw" secondAttribute="trailing" constant="34" id="Hwj-7T-SUn"/>
+                            <constraint firstAttribute="centerX" secondItem="DGX-go-0Fv" secondAttribute="centerX" constant="-0.5" id="IBG-Hq-o8F"/>
+                            <constraint firstItem="UqT-XR-l5L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="M0S-HG-zcd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WfM-xo-kCr" secondAttribute="trailing" constant="34" id="NtR-YU-AWo"/>
+                            <constraint firstItem="WfM-xo-kCr" firstAttribute="top" secondItem="ZvV-Ux-EFw" secondAttribute="bottom" constant="13" id="Om7-k7-kla"/>
+                            <constraint firstItem="9hg-7a-q2j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="VvP-Lr-lxZ"/>
+                            <constraint firstAttribute="centerX" secondItem="9hg-7a-q2j" secondAttribute="centerX" id="Vwx-y3-eDQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9hg-7a-q2j" secondAttribute="trailing" constant="34" id="YQb-Wg-dXY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qdP-Mx-K92" secondAttribute="trailing" constant="34" id="eRu-3s-WAS"/>
+                            <constraint firstAttribute="centerX" secondItem="WfM-xo-kCr" secondAttribute="centerX" id="fwX-JS-0fi"/>
+                            <constraint firstItem="qdP-Mx-K92" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="gpl-dn-D46"/>
+                            <constraint firstItem="WfM-xo-kCr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="kHG-ad-bAP"/>
+                            <constraint firstItem="DGX-go-0Fv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="lby-ba-Lgd"/>
+                            <constraint firstItem="ZvV-Ux-EFw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="nDo-fJ-LuN"/>
+                            <constraint firstAttribute="centerX" secondItem="qdP-Mx-K92" secondAttribute="centerX" id="pj1-Mb-FuW"/>
+                            <constraint firstAttribute="centerX" secondItem="ZvV-Ux-EFw" secondAttribute="centerX" id="rjt-9B-HDT"/>
+                            <constraint firstItem="ZvV-Ux-EFw" firstAttribute="top" secondItem="DGX-go-0Fv" secondAttribute="bottom" constant="-11" id="sZh-yE-1hK"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="IBG-Hq-o8F"/>
+                                <exclude reference="lby-ba-Lgd"/>
+                                <exclude reference="Hwj-7T-SUn"/>
+                                <exclude reference="nDo-fJ-LuN"/>
+                                <exclude reference="rjt-9B-HDT"/>
+                                <exclude reference="sZh-yE-1hK"/>
+                                <exclude reference="NtR-YU-AWo"/>
+                                <exclude reference="Om7-k7-kla"/>
+                                <exclude reference="fwX-JS-0fi"/>
+                                <exclude reference="kHG-ad-bAP"/>
+                                <exclude reference="2d9-PX-Aas"/>
+                                <exclude reference="3dJ-LQ-3OQ"/>
+                                <exclude reference="GBo-dn-PXl"/>
+                                <exclude reference="M0S-HG-zcd"/>
+                                <exclude reference="1aw-9i-cOc"/>
+                                <exclude reference="eRu-3s-WAS"/>
+                                <exclude reference="gpl-dn-D46"/>
+                                <exclude reference="pj1-Mb-FuW"/>
+                                <exclude reference="21c-he-mUF"/>
+                                <exclude reference="VvP-Lr-lxZ"/>
+                                <exclude reference="Vwx-y3-eDQ"/>
+                                <exclude reference="YQb-Wg-dXY"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="IBG-Hq-o8F"/>
+                                <include reference="lby-ba-Lgd"/>
+                                <include reference="Hwj-7T-SUn"/>
+                                <include reference="nDo-fJ-LuN"/>
+                                <include reference="rjt-9B-HDT"/>
+                                <include reference="sZh-yE-1hK"/>
+                                <include reference="NtR-YU-AWo"/>
+                                <include reference="Om7-k7-kla"/>
+                                <include reference="fwX-JS-0fi"/>
+                                <include reference="kHG-ad-bAP"/>
+                                <include reference="2d9-PX-Aas"/>
+                                <include reference="3dJ-LQ-3OQ"/>
+                                <include reference="GBo-dn-PXl"/>
+                                <include reference="M0S-HG-zcd"/>
+                                <include reference="1aw-9i-cOc"/>
+                                <include reference="eRu-3s-WAS"/>
+                                <include reference="gpl-dn-D46"/>
+                                <include reference="pj1-Mb-FuW"/>
+                                <include reference="21c-he-mUF"/>
+                                <include reference="VvP-Lr-lxZ"/>
+                                <include reference="Vwx-y3-eDQ"/>
+                                <include reference="YQb-Wg-dXY"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="439.5" y="362"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Image" width="288" height="288"/>
+    </resources>
 </document>
