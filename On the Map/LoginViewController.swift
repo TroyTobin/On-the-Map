@@ -37,7 +37,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         return
       }
       var parsingError: NSError? = nil
-      
+      var loginFailed: Bool = true
       let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
       
       let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
@@ -53,6 +53,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             println(key)
             dispatch_async(dispatch_get_main_queue(), {
               let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
+              loginFailed = false;
               self.presentViewController(controller, animated: true, completion: nil)
             })
           }
@@ -62,6 +63,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         println("not much happening here")
       }
       
+      if (loginFailed == true) {
+        //Create the AlertController
+        var errorString = ""
+        if let errorMessage = parsedResult?.valueForKey("error") as? String {
+          errorString += "\(errorMessage)"
+        }
+
+        dispatch_async(dispatch_get_main_queue(), {
+          let alertController: UIAlertController = UIAlertController(title: "Login Failed", message: errorString, preferredStyle: .Alert)
+          
+          alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+          
+        
+          //Present the AlertController
+          self.presentViewController(alertController, animated: true, completion: nil)
+        })
+      }
     }
     task.resume()
   }
