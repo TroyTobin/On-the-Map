@@ -83,7 +83,7 @@
                                     <rect key="frame" x="50" y="240" width="300" height="30"/>
                                 </variation>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="DGX-go-0Fv">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="TitleImage" translatesAutoresizingMaskIntoConstraints="NO" id="DGX-go-0Fv">
                                 <rect key="frame" x="257" y="40" width="115" height="115"/>
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="88" y="28" width="225" height="225"/>
@@ -246,13 +246,13 @@
                                 <exclude reference="vIA-LO-6vG"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="PfW-78-vYz"/>
+                                <exclude reference="Wzh-Od-8eV"/>
+                                <exclude reference="iip-hR-lbQ"/>
+                                <exclude reference="z3d-5J-MOy"/>
                                 <exclude reference="7L5-5q-PS2"/>
                                 <exclude reference="KgR-1w-rHs"/>
                                 <exclude reference="yh6-Dp-aOE"/>
-                                <exclude reference="iip-hR-lbQ"/>
-                                <exclude reference="z3d-5J-MOy"/>
-                                <exclude reference="PfW-78-vYz"/>
-                                <exclude reference="Wzh-Od-8eV"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -261,13 +261,13 @@
                                 <include reference="vIA-LO-6vG"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="PfW-78-vYz"/>
+                                <include reference="Wzh-Od-8eV"/>
+                                <include reference="iip-hR-lbQ"/>
+                                <include reference="z3d-5J-MOy"/>
                                 <include reference="7L5-5q-PS2"/>
                                 <include reference="KgR-1w-rHs"/>
                                 <include reference="yh6-Dp-aOE"/>
-                                <include reference="iip-hR-lbQ"/>
-                                <include reference="z3d-5J-MOy"/>
-                                <include reference="PfW-78-vYz"/>
-                                <include reference="Wzh-Od-8eV"/>
                             </mask>
                         </variation>
                     </view>
@@ -282,9 +282,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Image" width="288" height="288"/>
         <image name="ListView" width="40" height="40"/>
         <image name="Pin" width="29" height="29"/>
         <image name="PinMap" width="40" height="40"/>
+        <image name="TitleImage" width="288" height="288"/>
     </resources>
 </document>
