@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -203,7 +204,7 @@
             </objects>
             <point key="canvasLocation" x="1624.5" y="294"/>
         </scene>
-        <!--Map View Controller-->
+        <!--On the Map-->
         <scene sceneID="grl-Cy-WH5">
             <objects>
                 <viewController id="NH1-VE-NqR" customClass="MapViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
@@ -212,43 +213,68 @@
                         <viewControllerLayoutGuide type="bottom" id="ePv-wE-5na"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pWx-ZD-JWD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4Nv-zW-sRN">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vIA-LO-6vG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kW4-mm-tTz"/>
+                                    <barButtonItem image="PinMap" id="pWs-fF-ALL"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IMQ-TR-Xdq"/>
+                                    <barButtonItem image="ListView" id="byd-1X-Jz3"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xu9-Aa-Sca"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4Nv-zW-sRN" firstAttribute="leading" secondItem="pWx-ZD-JWD" secondAttribute="leadingMargin" constant="-16" id="7L5-5q-PS2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4Nv-zW-sRN" secondAttribute="trailing" constant="-16" id="KgR-1w-rHs"/>
                             <constraint firstItem="ePv-wE-5na" firstAttribute="top" secondItem="4Nv-zW-sRN" secondAttribute="bottom" id="PfW-78-vYz"/>
+                            <constraint firstItem="ePv-wE-5na" firstAttribute="top" secondItem="vIA-LO-6vG" secondAttribute="bottom" id="Wzh-Od-8eV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vIA-LO-6vG" secondAttribute="trailing" constant="-16" id="iip-hR-lbQ"/>
                             <constraint firstItem="4Nv-zW-sRN" firstAttribute="top" secondItem="pWx-ZD-JWD" secondAttribute="topMargin" id="yh6-Dp-aOE"/>
+                            <constraint firstItem="vIA-LO-6vG" firstAttribute="leading" secondItem="pWx-ZD-JWD" secondAttribute="leadingMargin" constant="-16" id="z3d-5J-MOy"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="4Nv-zW-sRN"/>
+                                <exclude reference="vIA-LO-6vG"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="7L5-5q-PS2"/>
                                 <exclude reference="KgR-1w-rHs"/>
                                 <exclude reference="yh6-Dp-aOE"/>
+                                <exclude reference="iip-hR-lbQ"/>
+                                <exclude reference="z3d-5J-MOy"/>
                                 <exclude reference="PfW-78-vYz"/>
+                                <exclude reference="Wzh-Od-8eV"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="4Nv-zW-sRN"/>
+                                <include reference="vIA-LO-6vG"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="7L5-5q-PS2"/>
                                 <include reference="KgR-1w-rHs"/>
                                 <include reference="yh6-Dp-aOE"/>
+                                <include reference="iip-hR-lbQ"/>
+                                <include reference="z3d-5J-MOy"/>
                                 <include reference="PfW-78-vYz"/>
+                                <include reference="Wzh-Od-8eV"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Bna-te-bCi"/>
+                    <navigationItem key="navigationItem" title="On the Map" id="Bna-te-bCi">
+                        <barButtonItem key="leftBarButtonItem" image="Pin" id="zVY-J9-Sfs"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Xyl-Ft-pAk"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrf-Ud-7cA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -257,5 +283,8 @@
     </scenes>
     <resources>
         <image name="Image" width="288" height="288"/>
+        <image name="ListView" width="40" height="40"/>
+        <image name="Pin" width="29" height="29"/>
+        <image name="PinMap" width="40" height="40"/>
     </resources>
 </document>
