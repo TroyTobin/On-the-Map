@@ -1,0 +1,5 @@
+Create an API layer for use with the app
+Separate Views from API code
+Create constants file for API ID, APP Key and any other useful things
+Clean up
+Comment
