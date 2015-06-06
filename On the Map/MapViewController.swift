@@ -15,12 +15,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   let APP_ID  = "PUT YOUR APP ID HERE"
   let API_KEY = "PUT YOUR API KEY HERE"
   
+  
   @IBOutlet weak var MapView: MKMapView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     self.MapView.delegate = self
+    
     loadStudentInformation()
   }
   

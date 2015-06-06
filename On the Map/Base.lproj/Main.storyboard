@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9Wd-d4-bY7">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -215,10 +215,10 @@
             </objects>
             <point key="canvasLocation" x="1344" y="198"/>
         </scene>
-        <!--View Controller-->
+        <!--New Pin View Controller-->
         <scene sceneID="crM-cb-Jrn">
             <objects>
-                <viewController id="sNo-JE-i9L" sceneMemberID="viewController">
+                <viewController id="sNo-JE-i9L" customClass="NewPinViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9Fe-6c-qn9"/>
                         <viewControllerLayoutGuide type="bottom" id="7Zz-3c-WWp"/>
@@ -338,6 +338,9 @@
                                 <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="65" y="534" width="270" height="36"/>
                                 </variation>
+                                <connections>
+                                    <action selector="findLocationOnMap:" destination="sNo-JE-i9L" eventType="touchUpInside" id="hbl-TZ-aYd"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -425,6 +428,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="locationTextField" destination="sAR-A3-hwC" id="nO3-5C-eZu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uc4-kL-jPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
