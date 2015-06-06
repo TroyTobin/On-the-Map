@@ -52,7 +52,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             let key = account?.valueForKey("key") as? String
             println(key)
             dispatch_async(dispatch_get_main_queue(), {
-              let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapTabBarController") as! UITabBarController
+              let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
               loginFailed = false;
               self.presentViewController(controller, animated: true, completion: nil)
             })
