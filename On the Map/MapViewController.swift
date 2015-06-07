@@ -23,10 +23,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // Do any additional setup after loading the view, typically from a nib.
     self.MapView.delegate = self
     
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshStudentInformation:", name: "refreshView",object: nil)
+    loadStudentInformation()
+    
+  }
+  
+  func refreshStudentInformation(notification: NSNotification) {
+    println("refresh student info")
+    removeStudentInformation()
     loadStudentInformation()
   }
   
+  func removeStudentInformation() {
+    for annotation in self.MapView.annotations {
+      
+      dispatch_async(dispatch_get_main_queue(), {
+        self.MapView.removeAnnotation(annotation as! MKPointAnnotation)
+      })
+    }
+  }
+  
   func loadStudentInformation() {
+    println("load student location")
     let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
     request.addValue(APP_ID, forHTTPHeaderField: "X-Parse-Application-Id")
     request.addValue(API_KEY, forHTTPHeaderField: "X-Parse-REST-API-Key")
@@ -46,7 +65,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
               if let mediaUrl = entry["mediaURL"] as? String {
                 newAnnotation.title = "\(firstName) \(lastName)"
                 newAnnotation.subtitle = "\(mediaUrl)"
-                self.MapView.addAnnotation(newAnnotation)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                  self.MapView.addAnnotation(newAnnotation)
+                })
               }
             }
           }

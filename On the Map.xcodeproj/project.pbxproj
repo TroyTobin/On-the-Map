@@ -11,6 +11,7 @@
 		53292FA61B21BC9C00237FD9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53292FA51B21BC9C00237FD9 /* MapKit.framework */; };
 		53CF1DF51B23456900BFD900 /* NewPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF1DF41B23456900BFD900 /* NewPinViewController.swift */; };
 		53CF1DF71B234C7200BFD900 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 53CF1DF61B234C7200BFD900 /* TODO */; };
+		53CF1DF91B23C81B00BFD900 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF1DF81B23C81B00BFD900 /* TabBarViewController.swift */; };
 		53ED5A191B1F255700A0A377 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED5A181B1F255700A0A377 /* AppDelegate.swift */; };
 		53ED5A1B1B1F255700A0A377 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED5A1A1B1F255700A0A377 /* LoginViewController.swift */; };
 		53ED5A1E1B1F255700A0A377 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53ED5A1C1B1F255700A0A377 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 		53292FA51B21BC9C00237FD9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		53CF1DF41B23456900BFD900 /* NewPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPinViewController.swift; sourceTree = "<group>"; };
 		53CF1DF61B234C7200BFD900 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		53CF1DF81B23C81B00BFD900 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		53ED5A131B1F255700A0A377 /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED5A171B1F255700A0A377 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53ED5A181B1F255700A0A377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				53ED5A1A1B1F255700A0A377 /* LoginViewController.swift */,
 				53292FA31B21BBDE00237FD9 /* MapViewController.swift */,
 				53ED5A1C1B1F255700A0A377 /* Main.storyboard */,
+				53CF1DF81B23C81B00BFD900 /* TabBarViewController.swift */,
 				53ED5A1F1B1F255700A0A377 /* Images.xcassets */,
 				53ED5A211B1F255700A0A377 /* LaunchScreen.xib */,
 				53ED5A161B1F255700A0A377 /* Supporting Files */,
@@ -229,6 +232,7 @@
 				53ED5A1B1B1F255700A0A377 /* LoginViewController.swift in Sources */,
 				53CF1DF51B23456900BFD900 /* NewPinViewController.swift in Sources */,
 				53292FA41B21BBDE00237FD9 /* MapViewController.swift in Sources */,
+				53CF1DF91B23C81B00BFD900 /* TabBarViewController.swift in Sources */,
 				53ED5A191B1F255700A0A377 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

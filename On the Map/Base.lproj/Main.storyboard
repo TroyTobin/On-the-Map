@@ -191,14 +191,18 @@
         <!--On the Map-->
         <scene sceneID="0s9-vh-zDU">
             <objects>
-                <tabBarController storyboardIdentifier="OnTheMapTabBarController" id="Rgr-tT-Jvp" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="OnTheMapTabBarController" id="Rgr-tT-Jvp" customClass="TabBarViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="On the Map" id="5jb-EA-BSI">
                         <barButtonItem key="leftBarButtonItem" image="Pin" id="PYf-1b-GRa">
                             <connections>
                                 <segue destination="sNo-JE-i9L" kind="presentation" id="WlQ-qQ-D6i"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="wI4-7n-gZp"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="wI4-7n-gZp">
+                            <connections>
+                                <action selector="refreshStudentLocations:" destination="Rgr-tT-Jvp" id="xey-U9-nhc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="fWL-xR-9mk">
@@ -224,6 +228,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7Zz-3c-WWp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PBT-Yc-z27">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dGt-wL-ZTW">
@@ -375,25 +380,25 @@
                                 <exclude reference="Q7b-XH-imj"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Bgn-nW-2mm"/>
-                                <exclude reference="Syf-Bx-6CY"/>
-                                <exclude reference="f4R-Hb-O9A"/>
+                                <exclude reference="r48-dS-UMp"/>
+                                <exclude reference="Eqq-bm-jql"/>
+                                <exclude reference="vNL-et-XkO"/>
+                                <exclude reference="zbu-rV-Px7"/>
                                 <exclude reference="EMk-kt-igE"/>
                                 <exclude reference="NkL-WG-BgN"/>
                                 <exclude reference="sHO-0s-UWh"/>
                                 <exclude reference="9eC-10-flp"/>
                                 <exclude reference="WXU-iW-872"/>
                                 <exclude reference="bnt-iF-YX1"/>
-                                <exclude reference="Eqq-bm-jql"/>
-                                <exclude reference="vNL-et-XkO"/>
-                                <exclude reference="zbu-rV-Px7"/>
-                                <exclude reference="NAo-fC-4fk"/>
-                                <exclude reference="tai-mC-0Mj"/>
-                                <exclude reference="yLn-fa-rCo"/>
                                 <exclude reference="IKI-LB-kRW"/>
                                 <exclude reference="VhF-TQ-PIF"/>
                                 <exclude reference="tbv-QZ-Wy0"/>
-                                <exclude reference="r48-dS-UMp"/>
+                                <exclude reference="Bgn-nW-2mm"/>
+                                <exclude reference="Syf-Bx-6CY"/>
+                                <exclude reference="f4R-Hb-O9A"/>
+                                <exclude reference="NAo-fC-4fk"/>
+                                <exclude reference="tai-mC-0Mj"/>
+                                <exclude reference="yLn-fa-rCo"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -406,25 +411,25 @@
                                 <include reference="Q7b-XH-imj"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="Bgn-nW-2mm"/>
-                                <include reference="Syf-Bx-6CY"/>
-                                <include reference="f4R-Hb-O9A"/>
+                                <include reference="r48-dS-UMp"/>
+                                <include reference="Eqq-bm-jql"/>
+                                <include reference="vNL-et-XkO"/>
+                                <include reference="zbu-rV-Px7"/>
                                 <include reference="EMk-kt-igE"/>
                                 <include reference="NkL-WG-BgN"/>
                                 <include reference="sHO-0s-UWh"/>
                                 <include reference="9eC-10-flp"/>
                                 <include reference="WXU-iW-872"/>
                                 <include reference="bnt-iF-YX1"/>
-                                <include reference="Eqq-bm-jql"/>
-                                <include reference="vNL-et-XkO"/>
-                                <include reference="zbu-rV-Px7"/>
-                                <include reference="NAo-fC-4fk"/>
-                                <include reference="tai-mC-0Mj"/>
-                                <include reference="yLn-fa-rCo"/>
                                 <include reference="IKI-LB-kRW"/>
                                 <include reference="VhF-TQ-PIF"/>
                                 <include reference="tbv-QZ-Wy0"/>
-                                <include reference="r48-dS-UMp"/>
+                                <include reference="Bgn-nW-2mm"/>
+                                <include reference="Syf-Bx-6CY"/>
+                                <include reference="f4R-Hb-O9A"/>
+                                <include reference="NAo-fC-4fk"/>
+                                <include reference="tai-mC-0Mj"/>
+                                <include reference="yLn-fa-rCo"/>
                             </mask>
                         </variation>
                     </view>
