@@ -27,8 +27,18 @@ class NewPinViewController: UIViewController, UITextFieldDelegate{
     
     
     geoCoder.geocodeAddressString(locationTextField.text, completionHandler: { result, error in
-      if let error = error {
-        println(error)
+      if let error = error as NSError! {
+        var errorString = "\(error.localizedDescription)"
+        
+        dispatch_async(dispatch_get_main_queue(), {
+          let alertController: UIAlertController = UIAlertController(title: "Location lookup failed", message: errorString, preferredStyle: .Alert)
+          
+          alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+          
+          
+          //Present the AlertController
+          self.presentViewController(alertController, animated: true, completion: nil)
+        })
         return
       }
       for placemark in result {
