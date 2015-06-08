@@ -25,7 +25,6 @@ class NewPinViewController: UIViewController, UITextFieldDelegate{
   @IBAction func findLocationOnMap(sender: AnyObject) {
     var geoCoder = CLGeocoder()
     
-    
     geoCoder.geocodeAddressString(locationTextField.text, completionHandler: { result, error in
       if let error = error as NSError! {
         var errorString = "\(error.localizedDescription)"
@@ -84,13 +83,13 @@ class NewPinViewController: UIViewController, UITextFieldDelegate{
               })
               return
             }
-            println(parsedResult)
+            if let objectID = parsedResult?.valueForKey("objectId") as? String {
+              self.dismissViewControllerAnimated(true, completion: nil)
+            }
           }
           task.resume()
-          println("\(p.location.coordinate.latitude), \(p.location.coordinate.longitude)")
         }
       }
-      //println(result)
     })
   }
   
