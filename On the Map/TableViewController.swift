@@ -21,7 +21,6 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
     
     TableView.dataSource = self
     TableView.delegate = self
-    /// Reload the memes in the table view
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshStudentInformation:", name: "refreshView",object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshListView:", name: "refreshListView",object: nil)
@@ -66,7 +65,7 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let Cell = tableView.dequeueReusableCellWithIdentifier("StudentTableCell") as! UITableViewCell
-    /// Set the meme label and image
+    
     if let student = self.Students?[indexPath.row] as? NSDictionary {
       if let firstName = student["firstName"] as? String {
         if let lastName = student["lastName"] as? String {
