@@ -1,5 +1,4 @@
-Add refresh functionality
-Implement list view
+Dismiss "add pin" view when the location has been added
 Add functionality to remove a pin
 Use Udacity user id as the "uniqueKey" in the "parse" message
 Report error if location lookup fails
