@@ -52,10 +52,39 @@ class NewPinViewController: UIViewController, UITextFieldDelegate{
           request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"\(self.locationTextField.text)\", \"mediaURL\": \"https://udacity.com\",\"latitude\": \(p.location.coordinate.latitude), \"longitude\": \(p.location.coordinate.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
           let session = NSURLSession.sharedSession()
           let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
+            
+            if let error = error as NSError! {
+              var errorString = "\(error.localizedDescription)"
+              
+              dispatch_async(dispatch_get_main_queue(), {
+                let alertController: UIAlertController = UIAlertController(title: "Pin post failed", message: errorString, preferredStyle: .Alert)
+                
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                
+                
+                //Present the AlertController
+                self.presentViewController(alertController, animated: true, completion: nil)
+              })
               return
             }
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            
+            var parsingError: NSError? = nil
+            let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+            if let error = parsedResult?.valueForKey("error") as? String {
+              var errorString = "\(error)"
+              
+              dispatch_async(dispatch_get_main_queue(), {
+                let alertController: UIAlertController = UIAlertController(title: "Pin post failed", message: errorString, preferredStyle: .Alert)
+                
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                
+                
+                //Present the AlertController
+                self.presentViewController(alertController, animated: true, completion: nil)
+              })
+              return
+            }
+            println(parsedResult)
           }
           task.resume()
           println("\(p.location.coordinate.latitude), \(p.location.coordinate.longitude)")
