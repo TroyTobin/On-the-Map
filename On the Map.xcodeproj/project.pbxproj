@@ -12,6 +12,7 @@
 		53CF1DF51B23456900BFD900 /* NewPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF1DF41B23456900BFD900 /* NewPinViewController.swift */; };
 		53CF1DF71B234C7200BFD900 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 53CF1DF61B234C7200BFD900 /* TODO */; };
 		53CF1DF91B23C81B00BFD900 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF1DF81B23C81B00BFD900 /* TabBarViewController.swift */; };
+		53CF1DFB1B23ED9100BFD900 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF1DFA1B23ED9100BFD900 /* TableViewController.swift */; };
 		53ED5A191B1F255700A0A377 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED5A181B1F255700A0A377 /* AppDelegate.swift */; };
 		53ED5A1B1B1F255700A0A377 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED5A1A1B1F255700A0A377 /* LoginViewController.swift */; };
 		53ED5A1E1B1F255700A0A377 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53ED5A1C1B1F255700A0A377 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		53CF1DF41B23456900BFD900 /* NewPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPinViewController.swift; sourceTree = "<group>"; };
 		53CF1DF61B234C7200BFD900 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		53CF1DF81B23C81B00BFD900 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		53CF1DFA1B23ED9100BFD900 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		53ED5A131B1F255700A0A377 /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED5A171B1F255700A0A377 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53ED5A181B1F255700A0A377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 		53ED5A151B1F255700A0A377 /* On the Map */ = {
 			isa = PBXGroup;
 			children = (
+				53CF1DFA1B23ED9100BFD900 /* TableViewController.swift */,
 				53CF1DF41B23456900BFD900 /* NewPinViewController.swift */,
 				53ED5A181B1F255700A0A377 /* AppDelegate.swift */,
 				53ED5A1A1B1F255700A0A377 /* LoginViewController.swift */,
@@ -230,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53ED5A1B1B1F255700A0A377 /* LoginViewController.swift in Sources */,
+				53CF1DFB1B23ED9100BFD900 /* TableViewController.swift in Sources */,
 				53CF1DF51B23456900BFD900 /* NewPinViewController.swift in Sources */,
 				53292FA41B21BBDE00237FD9 /* MapViewController.swift in Sources */,
 				53CF1DF91B23C81B00BFD900 /* TabBarViewController.swift in Sources */,

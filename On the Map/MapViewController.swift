@@ -18,21 +18,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   
   @IBOutlet weak var MapView: MKMapView!
   
+  var annotations = [MKAnnotation]()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     self.MapView.delegate = self
     
-    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshStudentInformation:", name: "refreshView",object: nil)
-    loadStudentInformation()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMapView:", name: "refreshMapView",object: nil)
     
+    loadStudentInformation()
   }
   
   func refreshStudentInformation(notification: NSNotification) {
-    println("refresh student info")
     removeStudentInformation()
     loadStudentInformation()
+  }
+  
+  
+  func refreshMapView(notification: NSNotification) {
+    dispatch_async(dispatch_get_main_queue(), {
+      self.MapView.addAnnotations(self.annotations)
+    })
   }
   
   func removeStudentInformation() {
@@ -45,7 +53,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   }
   
   func loadStudentInformation() {
-    println("load student location")
     let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
     request.addValue(APP_ID, forHTTPHeaderField: "X-Parse-Application-Id")
     request.addValue(API_KEY, forHTTPHeaderField: "X-Parse-REST-API-Key")
@@ -55,6 +62,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return
       }
       var parsingError: NSError? = nil
+      
+      self.annotations.removeAll(keepCapacity: false)
+      
       let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
       if let results = parsedResult?.valueForKey("results") as? NSArray {
         for entry in results {
@@ -65,16 +75,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
               if let mediaUrl = entry["mediaURL"] as? String {
                 newAnnotation.title = "\(firstName) \(lastName)"
                 newAnnotation.subtitle = "\(mediaUrl)"
+                self.annotations.append(newAnnotation)
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                  self.MapView.addAnnotation(newAnnotation)
-                })
+                NSNotificationCenter.defaultCenter().postNotificationName("refreshMapView", object: nil)
               }
             }
           }
-          println(entry)
         }
-        println(results.count)
       }
     }
     task.resume()
