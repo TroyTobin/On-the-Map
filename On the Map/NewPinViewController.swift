@@ -22,6 +22,12 @@ class NewPinViewController: UIViewController, UITextFieldDelegate{
 
   }
   
+  
+  @IBAction func cancelNewPin(sender: AnyObject) {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  
   @IBAction func findLocationOnMap(sender: AnyObject) {
     var geoCoder = CLGeocoder()
     
