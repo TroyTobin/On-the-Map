@@ -10,9 +10,6 @@ import UIKit
 import CoreLocation
 
 class NewPinViewController: UIViewController, UITextFieldDelegate{
-
-  let APP_ID  = "PUT YOUR APP ID HERE"
-  let API_KEY = "PUT YOUR API KEY HERE"
   
   @IBOutlet weak var locationTextField: UITextView!
   
@@ -51,8 +48,8 @@ class NewPinViewController: UIViewController, UITextFieldDelegate{
           
           let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
           request.HTTPMethod = "POST"
-          request.addValue(self.APP_ID, forHTTPHeaderField: "X-Parse-Application-Id")
-          request.addValue(self.API_KEY, forHTTPHeaderField: "X-Parse-REST-API-Key")
+          request.addValue(OTMClient.Constants.AppId, forHTTPHeaderField: "X-Parse-Application-Id")
+          request.addValue(OTMClient.Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
           request.addValue("application/json", forHTTPHeaderField: "Content-Type")
           request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"\(self.locationTextField.text)\", \"mediaURL\": \"https://udacity.com\",\"latitude\": \(p.location.coordinate.latitude), \"longitude\": \(p.location.coordinate.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
           let session = NSURLSession.sharedSession()

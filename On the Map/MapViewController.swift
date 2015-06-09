@@ -12,9 +12,6 @@ import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate {
   
-  let APP_ID  = "PUT YOUR APP ID HERE"
-  let API_KEY = "PUT YOUR API KEY HERE"
-  
   
   @IBOutlet weak var MapView: MKMapView!
   
@@ -54,8 +51,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   
   func loadStudentInformation() {
     let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-    request.addValue(APP_ID, forHTTPHeaderField: "X-Parse-Application-Id")
-    request.addValue(API_KEY, forHTTPHeaderField: "X-Parse-REST-API-Key")
+    request.addValue(OTMClient.Constants.AppId, forHTTPHeaderField: "X-Parse-Application-Id")
+    request.addValue(OTMClient.Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
     let session = NSURLSession.sharedSession()
     let task = session.dataTaskWithRequest(request) { data, response, error in
       if error != nil { // Handle error...

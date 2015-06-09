@@ -8,9 +8,6 @@
 import UIKit
 
 class StudentTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-  let APP_ID  = "PUT YOUR APP ID HERE"
-  let API_KEY = "PUT YOUR API KEY HERE"
   
   var Students: NSArray? = nil
   @IBOutlet var TableView: UITableView!
@@ -40,8 +37,8 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
   
   func loadStudentInformation() {
     let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-    request.addValue(APP_ID, forHTTPHeaderField: "X-Parse-Application-Id")
-    request.addValue(API_KEY, forHTTPHeaderField: "X-Parse-REST-API-Key")
+    request.addValue(OTMClient.Constants.AppId, forHTTPHeaderField: "X-Parse-Application-Id")
+    request.addValue(OTMClient.Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
     let session = NSURLSession.sharedSession()
     let task = session.dataTaskWithRequest(request) { data, response, error in
       if error != nil { // Handle error...
