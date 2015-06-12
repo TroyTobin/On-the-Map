@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9Wd-d4-bY7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -100,17 +100,39 @@
                                     <rect key="frame" x="50" y="405" width="300" height="30"/>
                                 </variation>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="08S-0N-Urb">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="dpU-LA-Ubf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="dpU-LA-Ubf"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="88" y="475" width="225" height="44"/>
+                                    <mask key="constraints">
+                                        <include reference="dpU-LA-Ubf"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.6208009686" green="0.84774119879999998" blue="0.54297577659999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="qdP-Mx-K92" firstAttribute="top" secondItem="UqT-XR-l5L" secondAttribute="bottom" constant="6" id="1aw-9i-cOc"/>
                             <constraint firstItem="9hg-7a-q2j" firstAttribute="top" secondItem="qdP-Mx-K92" secondAttribute="bottom" constant="8" id="21c-he-mUF"/>
+                            <constraint firstAttribute="centerX" secondItem="08S-0N-Urb" secondAttribute="centerX" constant="-0.5" id="25y-fa-hOw"/>
                             <constraint firstItem="UqT-XR-l5L" firstAttribute="top" secondItem="WfM-xo-kCr" secondAttribute="bottom" constant="8" id="2d9-PX-Aas"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UqT-XR-l5L" secondAttribute="trailing" constant="34" id="3dJ-LQ-3OQ"/>
                             <constraint firstAttribute="centerX" secondItem="UqT-XR-l5L" secondAttribute="centerX" id="GBo-dn-PXl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZvV-Ux-EFw" secondAttribute="trailing" constant="34" id="Hwj-7T-SUn"/>
                             <constraint firstAttribute="centerX" secondItem="DGX-go-0Fv" secondAttribute="centerX" constant="-0.5" id="IBG-Hq-o8F"/>
                             <constraint firstItem="UqT-XR-l5L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="M0S-HG-zcd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="08S-0N-Urb" secondAttribute="trailing" constant="30" id="NjW-iO-Rh9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WfM-xo-kCr" secondAttribute="trailing" constant="34" id="NtR-YU-AWo"/>
                             <constraint firstItem="WfM-xo-kCr" firstAttribute="top" secondItem="ZvV-Ux-EFw" secondAttribute="bottom" constant="13" id="Om7-k7-kla"/>
                             <constraint firstItem="9hg-7a-q2j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="VvP-Lr-lxZ"/>
@@ -119,14 +141,19 @@
                             <constraint firstAttribute="trailingMargin" secondItem="qdP-Mx-K92" secondAttribute="trailing" constant="34" id="eRu-3s-WAS"/>
                             <constraint firstAttribute="centerX" secondItem="WfM-xo-kCr" secondAttribute="centerX" id="fwX-JS-0fi"/>
                             <constraint firstItem="qdP-Mx-K92" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="gpl-dn-D46"/>
+                            <constraint firstItem="08S-0N-Urb" firstAttribute="top" secondItem="9hg-7a-q2j" secondAttribute="bottom" constant="40" id="iDK-08-cCs"/>
                             <constraint firstItem="WfM-xo-kCr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="kHG-ad-bAP"/>
                             <constraint firstItem="DGX-go-0Fv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="lby-ba-Lgd"/>
                             <constraint firstItem="ZvV-Ux-EFw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="nDo-fJ-LuN"/>
                             <constraint firstAttribute="centerX" secondItem="qdP-Mx-K92" secondAttribute="centerX" id="pj1-Mb-FuW"/>
                             <constraint firstAttribute="centerX" secondItem="ZvV-Ux-EFw" secondAttribute="centerX" id="rjt-9B-HDT"/>
                             <constraint firstItem="ZvV-Ux-EFw" firstAttribute="top" secondItem="DGX-go-0Fv" secondAttribute="bottom" constant="-11" id="sZh-yE-1hK"/>
+                            <constraint firstItem="08S-0N-Urb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="wtr-IM-alv"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="08S-0N-Urb"/>
+                            </mask>
                             <mask key="constraints">
                                 <exclude reference="IBG-Hq-o8F"/>
                                 <exclude reference="lby-ba-Lgd"/>
@@ -150,9 +177,16 @@
                                 <exclude reference="VvP-Lr-lxZ"/>
                                 <exclude reference="Vwx-y3-eDQ"/>
                                 <exclude reference="YQb-Wg-dXY"/>
+                                <exclude reference="25y-fa-hOw"/>
+                                <exclude reference="NjW-iO-Rh9"/>
+                                <exclude reference="iDK-08-cCs"/>
+                                <exclude reference="wtr-IM-alv"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="08S-0N-Urb"/>
+                            </mask>
                             <mask key="constraints">
                                 <include reference="IBG-Hq-o8F"/>
                                 <include reference="lby-ba-Lgd"/>
@@ -176,11 +210,16 @@
                                 <include reference="VvP-Lr-lxZ"/>
                                 <include reference="Vwx-y3-eDQ"/>
                                 <include reference="YQb-Wg-dXY"/>
+                                <include reference="25y-fa-hOw"/>
+                                <include reference="NjW-iO-Rh9"/>
+                                <include reference="iDK-08-cCs"/>
+                                <include reference="wtr-IM-alv"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="WfM-xo-kCr" id="AEM-3F-mo1"/>
+                        <outlet property="errorTextField" destination="08S-0N-Urb" id="pLG-7Z-TSq"/>
                         <outlet property="passwordTextField" destination="UqT-XR-l5L" id="uIY-xR-2pN"/>
                     </connections>
                 </viewController>
@@ -474,14 +513,11 @@
                         <viewControllerLayoutGuide type="bottom" id="ePv-wE-5na"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pWx-ZD-JWD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4Nv-zW-sRN">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="551"/>
-                                </variation>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -529,7 +565,7 @@
             <objects>
                 <tableViewController id="hwP-6y-XOw" customClass="StudentTableViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ZQ1-ow-fjZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
