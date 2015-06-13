@@ -9,13 +9,18 @@
 import Foundation
 
 import UIKit
+import CoreLocation
 
 class OTMClient: NSObject {
   
   var session: NSURLSession
+  var geoCoder: CLGeocoder
+  var student: OTMStudent?
   
   override init() {
     session = NSURLSession.sharedSession()
+    geoCoder = CLGeocoder()
+    student = nil
     super.init()
   }
   
@@ -49,8 +54,23 @@ class OTMClient: NSObject {
     }
   }
   
-  func doGetReq(baseURL: String, method: String) {
-    let request = NSMutableURLRequest(URL: NSURL(string: "\(baseURL)/\(method)")!)
+  func doGetReq(baseURL: String, method: String, params: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
+    let request = NSMutableURLRequest(URL: NSURL(string: "\(baseURL)/\(method)/\(params)")!)
+    request.HTTPMethod = "GET"
+    let task = self.session.dataTaskWithRequest(request) { data, response, error in
+      if let inError = error {
+        println(inError)
+        let userInfo = [NSLocalizedDescriptionKey : "Failed to Get data"]
+        let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
+        completionHandler(result: nil, error: newError)
+      } else {
+        println(data)
+        let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+        OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+      }
+    }
+    task.resume()
+    return true
   }
   
   func doPostReq(baseURL: String, method: String, body: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
@@ -76,34 +96,60 @@ class OTMClient: NSObject {
     task.resume()
     return true
   }
+  
+  func getStudentInformation(key: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
+    doGetReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Users, params: key) { result, error in
+      if let newError = error {
+        completionHandler(success: false, errorString: error?.localizedDescription)
+      } else {
+        if let user = result?.valueForKey("user") as? NSDictionary {
+          println("got user")
+          if let student = self.student {
+            self.student?.firstName = user.valueForKey("first_name") as? String
+            self.student?.lastName = user.valueForKey("last_name") as? String
+            println(self.student!.firstName)
+            println(self.student!.lastName)
+            completionHandler(success: true, errorString: nil)
+            return
+          }
+        }
+      }
+      completionHandler(success: false, errorString: "Invalid User Response")
+    }
+  }
 
   func loginUdacity(username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
     var body = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
     doPostReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, body: body) { result, error in
-      println(result)
       if let newError = error {
         completionHandler(success: false, errorString: error?.localizedDescription)
       } else if let account = result?.valueForKey("account") as? NSDictionary {
         println(account)
         if let registered = account.valueForKey("registered") as? Bool {
           if (registered == true) {
-            let key = account.valueForKey("key") as? String
-            completionHandler(success: true, errorString: nil)
-          } else {
-            completionHandler(success: false, errorString: "Invalid Response")
+            if let key = account.valueForKey("key") as? String {
+              self.student = OTMStudent(id: key)
+              if let student = self.student {
+                self.getStudentInformation(student.id) { result, error in
+                  if let newError = error {
+                    completionHandler(success: false, errorString: newError)
+                  } else {
+                    completionHandler(success: true, errorString: nil)
+                  }
+                }
+                return
+              }
+            }
           }
-        } else {
-          completionHandler(success: false, errorString: "Invalid Response")
         }
       } else if let errorMessage = result?.valueForKey("error") as? String {
         completionHandler(success: false, errorString: errorMessage)
-      } else {
-        completionHandler(success: false, errorString: "Invalid Response")
+        return
       }
+      completionHandler(success: false, errorString: "Invalid Login Response")
     }
   }
 
-            
   class func sharedInstance() -> OTMClient {
     struct Singleton {
       static var sharedInstance = OTMClient()
