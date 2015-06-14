@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate{
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
   @IBOutlet weak var emailTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
@@ -22,7 +22,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     emailTextField.delegate = self
     passwordTextField.delegate = self
     errorTextField.text = ""
-    
     
     errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
     errorTextField.textColor = UIColor.whiteColor()

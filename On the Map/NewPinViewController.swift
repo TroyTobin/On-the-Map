@@ -9,14 +9,21 @@
 import UIKit
 import CoreLocation
 
-class NewPinViewController: UIViewController, UITextFieldDelegate{
+class NewPinViewController: UIViewController, UITextViewDelegate {
   
   @IBOutlet weak var locationTextField: UITextView!
+  @IBOutlet weak var errorTextField: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-
+    
+    locationTextField.delegate = self
+    
+    locationTextField.text = "Enter Location Here"
+    
+    errorTextField.text = ""
+    errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
+    errorTextField.textColor = UIColor.blackColor()
   }
   
   
@@ -26,9 +33,28 @@ class NewPinViewController: UIViewController, UITextFieldDelegate{
   
   
   @IBAction func findLocationOnMap(sender: AnyObject) {
-    var geoCoder = CLGeocoder()
+    self.view.endEditing(true)
     
+    OTMClient.sharedInstance().updateStudentPin(locationTextField.text) { success, errorString in
+      if let error = errorString {
+        self.displayError(error)
+      } else {
+        
+      }
+    }
   }
   
+  func displayError(error: String) {
+    println("error \(error)")
+    dispatch_async(dispatch_get_main_queue(), {
+      self.errorTextField.text = error
+      self.locationTextField.text = "Enter Location Here"
+    })
+  }
+  
+  func textViewDidBeginEditing(textView: UITextView) {
+    errorTextField.text = ""
+    locationTextField.text = ""
+  }
 }
 

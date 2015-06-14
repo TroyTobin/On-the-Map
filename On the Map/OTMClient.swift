@@ -59,12 +59,10 @@ class OTMClient: NSObject {
     request.HTTPMethod = "GET"
     let task = self.session.dataTaskWithRequest(request) { data, response, error in
       if let inError = error {
-        println(inError)
         let userInfo = [NSLocalizedDescriptionKey : "Failed to Get data"]
         let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
         completionHandler(result: nil, error: newError)
       } else {
-        println(data)
         let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
         OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
       }
@@ -84,7 +82,6 @@ class OTMClient: NSObject {
     
     let task = self.session.dataTaskWithRequest(request) { data, response, error in
       if let inError = error {
-        println(inError)
         let userInfo = [NSLocalizedDescriptionKey : "Failed to Post data"]
         let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
         completionHandler(result: nil, error: newError)
@@ -103,12 +100,9 @@ class OTMClient: NSObject {
         completionHandler(success: false, errorString: error?.localizedDescription)
       } else {
         if let user = result?.valueForKey("user") as? NSDictionary {
-          println("got user")
           if let student = self.student {
             self.student?.firstName = user.valueForKey("first_name") as? String
             self.student?.lastName = user.valueForKey("last_name") as? String
-            println(self.student!.firstName)
-            println(self.student!.lastName)
             completionHandler(success: true, errorString: nil)
             return
           }
@@ -122,9 +116,8 @@ class OTMClient: NSObject {
     var body = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
     doPostReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, body: body) { result, error in
       if let newError = error {
-        completionHandler(success: false, errorString: error?.localizedDescription)
+        completionHandler(success: false, errorString: newError.localizedDescription)
       } else if let account = result?.valueForKey("account") as? NSDictionary {
-        println(account)
         if let registered = account.valueForKey("registered") as? Bool {
           if (registered == true) {
             if let key = account.valueForKey("key") as? String {
@@ -150,6 +143,29 @@ class OTMClient: NSObject {
     }
   }
 
+  func geoLocateAddress(address: String, completionHandler: (success: Bool, placemarks:[AnyObject]!, errorString: String?) -> Void) {
+    geoCoder.geocodeAddressString(address) { result, error in
+      if let newError = error {
+        completionHandler(success: false, placemarks: nil, errorString: newError.localizedDescription)
+      } else if let newResult = result {
+        completionHandler(success: true, placemarks: result, errorString: nil)
+      } else {
+        completionHandler(success: false, placemarks: nil, errorString: "Unknown Error")
+      }
+    }
+  }
+  
+  func updateStudentPin(address: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
+    self.geoLocateAddress(address) { success, placemarks, errorString in
+      if let error = errorString {
+        completionHandler(success: false, errorString: error)
+      } else {
+        completionHandler(success: true, errorString: nil)
+      }
+    }
+  }
+  
+  
   class func sharedInstance() -> OTMClient {
     struct Singleton {
       static var sharedInstance = OTMClient()
