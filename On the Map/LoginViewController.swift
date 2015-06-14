@@ -32,8 +32,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     OTMClient.sharedInstance().loginUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
       if success {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
         dispatch_async(dispatch_get_main_queue(), {
+          let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
           self.presentViewController(controller, animated: true, completion: nil)
         })
 

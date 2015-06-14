@@ -36,21 +36,14 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
   }
   
   func loadStudentInformation() {
-    let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-    request.addValue(OTMClient.Constants.AppId, forHTTPHeaderField: "X-Parse-Application-Id")
-    request.addValue(OTMClient.Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-    let session = NSURLSession.sharedSession()
-    let task = session.dataTaskWithRequest(request) { data, response, error in
-      if error != nil { // Handle error...
-        return
+    OTMClient.sharedInstance().loadStudentLocations() { result, errorString in
+      if let parsedResult = result as? NSDictionary {
+        if let results = parsedResult.valueForKey("results") as? NSArray {
+          self.Students = results
+          NSNotificationCenter.defaultCenter().postNotificationName("refreshListView", object: nil)
+        }
       }
-      var parsingError: NSError? = nil
-      let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
-      self.Students = parsedResult?.valueForKey("results") as? NSArray
-      
-      NSNotificationCenter.defaultCenter().postNotificationName("refreshListView", object: nil)
     }
-    task.resume()
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,7 +59,10 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
     if let student = self.Students?[indexPath.row] as? NSDictionary {
       if let firstName = student["firstName"] as? String {
         if let lastName = student["lastName"] as? String {
-          Cell.textLabel!.text = "\(firstName) \(lastName)"
+          if let media = student["mediaURL"] as? String {
+            Cell.textLabel!.text = "\(firstName) \(lastName)"
+            Cell.detailTextLabel!.text = media
+          }
         }
       }
     }

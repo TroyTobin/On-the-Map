@@ -54,16 +54,32 @@ class OTMClient: NSObject {
     }
   }
   
-  func doGetReq(baseURL: String, method: String, params: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
-    let request = NSMutableURLRequest(URL: NSURL(string: "\(baseURL)/\(method)/\(params)")!)
+  func doGetReq(baseURL: String, method: String, params: String?, header: [NSDictionary]?, offset: Int,  completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
+    var fullUrl: NSURL? = nil
+    if let inParams = params {
+      fullUrl = NSURL(string: "\(baseURL)/\(method)/\(inParams)")
+    } else {
+      fullUrl = NSURL(string:"\(baseURL)/\(method)")
+    }
+    let request = NSMutableURLRequest(URL: fullUrl!)
     request.HTTPMethod = "GET"
+    if let inHeader = header {
+      for item in inHeader {
+        if let value = item.valueForKey("value") as? String {
+          if let field = item.valueForKey("field") as? String {
+            request.addValue(value, forHTTPHeaderField: field)
+          }
+        }
+      }
+    }
+    
     let task = self.session.dataTaskWithRequest(request) { data, response, error in
       if let inError = error {
         let userInfo = [NSLocalizedDescriptionKey : "Failed to Get data"]
         let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
         completionHandler(result: nil, error: newError)
       } else {
-        let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+        let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset))
         OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
       }
     }
@@ -71,7 +87,7 @@ class OTMClient: NSObject {
     return true
   }
   
-  func doPostReq(baseURL: String, method: String, body: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
+  func doPostReq(baseURL: String, method: String, body: String, offset: Int, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
     
     let urlString = "\(baseURL)/\(method)"
     var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
@@ -86,7 +102,7 @@ class OTMClient: NSObject {
         let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
         completionHandler(result: nil, error: newError)
       } else {
-        let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+        let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset)) /* subset response data! */
         OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
       }
     }
@@ -94,8 +110,21 @@ class OTMClient: NSObject {
     return true
   }
   
+  func loadStudentLocations(completionHandler: (result: AnyObject?, errorString: String?) -> Void) {
+    
+    var httpHeader = [OTMClient.ParseHTTPHeader.APIKey, OTMClient.ParseHTTPHeader.ApplicationId]
+    
+    doGetReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, params: nil, header: httpHeader, offset: 0) { result, error in
+      if let inError = error {
+        completionHandler(result: nil, errorString: inError.localizedDescription)
+      } else {
+        completionHandler(result: result, errorString: nil)
+      }
+    }
+  }
+  
   func getStudentInformation(key: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
-    doGetReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Users, params: key) { result, error in
+    doGetReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Users, params: key, header: nil, offset: 5) { result, error in
       if let newError = error {
         completionHandler(success: false, errorString: error?.localizedDescription)
       } else {
@@ -114,7 +143,7 @@ class OTMClient: NSObject {
 
   func loginUdacity(username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
     var body = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
-    doPostReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, body: body) { result, error in
+    doPostReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, body: body, offset: 5) { result, error in
       if let newError = error {
         completionHandler(success: false, errorString: newError.localizedDescription)
       } else if let account = result?.valueForKey("account") as? NSDictionary {
@@ -164,7 +193,6 @@ class OTMClient: NSObject {
       }
     }
   }
-  
   
   class func sharedInstance() -> OTMClient {
     struct Singleton {

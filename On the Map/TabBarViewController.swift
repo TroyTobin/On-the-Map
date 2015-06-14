@@ -17,7 +17,6 @@ class TabBarViewController: UITabBarController {
   }
   
   @IBAction func refreshStudentLocations(sender: AnyObject) {
-    println("Calling refresh")
     NSNotificationCenter.defaultCenter().postNotificationName("refreshView", object: nil)
   }
 }
