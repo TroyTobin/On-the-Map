@@ -330,9 +330,6 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <variation key="widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="18" y="13" width="366" height="141"/>
-                                        </variation>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.23921568630000001" blue="0.58039215690000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -355,8 +352,7 @@
                                         <exclude reference="H9I-no-CoT"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="310" width="400" height="174"/>
+                                <variation key="widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="sAR-A3-hwC"/>
                                     </mask>
@@ -391,8 +387,7 @@
                                         <exclude reference="abn-f5-rsi"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="65" y="549" width="270" height="36"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="abn-f5-rsi"/>
                                     </mask>
@@ -414,8 +409,7 @@
                                         <exclude reference="zdt-8R-0Uo"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="498" width="368" height="34"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="zdt-8R-0Uo"/>
                                     </mask>
@@ -555,6 +549,7 @@
                         <viewControllerLayoutGuide type="bottom" id="X3I-Yd-Hi3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LRP-gG-weD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Rgs-SY-1xl">
@@ -647,16 +642,16 @@
                                 <exclude reference="wlk-qE-uX8"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="7qu-Sg-zAl"/>
+                                <exclude reference="Wwt-Tu-KDs"/>
+                                <exclude reference="Wcl-0a-vBc"/>
+                                <exclude reference="oWr-LB-bsZ"/>
                                 <exclude reference="RJ0-Br-edn"/>
                                 <exclude reference="fcy-o9-TJs"/>
                                 <exclude reference="vnu-8l-d5N"/>
                                 <exclude reference="CLs-wh-Gvi"/>
                                 <exclude reference="mFI-qJ-QKA"/>
                                 <exclude reference="z7X-MT-lLi"/>
-                                <exclude reference="Wcl-0a-vBc"/>
-                                <exclude reference="oWr-LB-bsZ"/>
-                                <exclude reference="7qu-Sg-zAl"/>
-                                <exclude reference="Wwt-Tu-KDs"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -666,21 +661,25 @@
                                 <include reference="wlk-qE-uX8"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="7qu-Sg-zAl"/>
+                                <include reference="Wwt-Tu-KDs"/>
+                                <include reference="Wcl-0a-vBc"/>
+                                <include reference="oWr-LB-bsZ"/>
                                 <include reference="RJ0-Br-edn"/>
                                 <include reference="fcy-o9-TJs"/>
                                 <include reference="vnu-8l-d5N"/>
                                 <include reference="CLs-wh-Gvi"/>
                                 <include reference="mFI-qJ-QKA"/>
                                 <include reference="z7X-MT-lLi"/>
-                                <include reference="Wcl-0a-vBc"/>
-                                <include reference="oWr-LB-bsZ"/>
-                                <include reference="7qu-Sg-zAl"/>
-                                <include reference="Wwt-Tu-KDs"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mNi-Tz-6zV">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="bNd-2h-zMf"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="bNd-2h-zMf">
+                            <connections>
+                                <action selector="cancelNewPin:" destination="EkC-CX-ZNv" id="7cu-8w-IpH"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="MapView" destination="Rgs-SY-1xl" id="VZr-P5-htr"/>

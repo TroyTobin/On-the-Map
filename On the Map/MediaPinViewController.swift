@@ -34,9 +34,11 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate {
         self.MapView.addAnnotation(newAnnotation)
         self.MapView.setRegion(newRegion, animated: true)
       })
-      
-      
     }
+  }
+  
+  @IBAction func cancelNewPin(sender: AnyObject) {
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   @IBAction func submitNewPin(sender: AnyObject) {
