@@ -330,7 +330,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                        <variation key="widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="18" y="13" width="366" height="141"/>
                                         </variation>
                                     </textView>
@@ -355,7 +355,7 @@
                                         <exclude reference="H9I-no-CoT"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="0.0" y="310" width="400" height="174"/>
                                     <mask key="subviews">
                                         <include reference="sAR-A3-hwC"/>
@@ -372,6 +372,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7b-XH-imj">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="abn-f5-rsi"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Find on the map">
                                     <color key="titleColor" red="0.2274509804" green="0.3294117647" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -383,8 +386,16 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
-                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="abn-f5-rsi"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="65" y="549" width="270" height="36"/>
+                                    <mask key="constraints">
+                                        <include reference="abn-f5-rsi"/>
+                                    </mask>
                                 </variation>
                                 <connections>
                                     <action selector="findLocationOnMap:" destination="sNo-JE-i9L" eventType="touchUpInside" id="hbl-TZ-aYd"/>
@@ -403,7 +414,7 @@
                                         <exclude reference="zdt-8R-0Uo"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="16" y="498" width="368" height="34"/>
                                     <mask key="constraints">
                                         <include reference="zdt-8R-0Uo"/>
@@ -535,10 +546,10 @@
             </objects>
             <point key="canvasLocation" x="3216" y="198"/>
         </scene>
-        <!--View Controller-->
+        <!--Media Pin View Controller-->
         <scene sceneID="fAO-Vw-dCn">
             <objects>
-                <viewController id="EkC-CX-ZNv" sceneMemberID="viewController">
+                <viewController id="EkC-CX-ZNv" customClass="MediaPinViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="awe-WR-cFb"/>
                         <viewControllerLayoutGuide type="bottom" id="X3I-Yd-Hi3"/>
@@ -553,7 +564,7 @@
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="tOj-r3-0Dh"/>
+                                    <constraint firstAttribute="height" constant="50" id="tOj-r3-0Dh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Submit">
@@ -578,6 +589,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="findLocationOnMap:" destination="sNo-JE-i9L" eventType="touchUpInside" id="Pjh-gd-jXh"/>
+                                    <action selector="submitNewPin:" destination="EkC-CX-ZNv" eventType="touchUpInside" id="evF-zW-OYC"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlk-qE-uX8">
@@ -670,6 +682,10 @@
                     <navigationItem key="navigationItem" id="mNi-Tz-6zV">
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="bNd-2h-zMf"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="MapView" destination="Rgs-SY-1xl" id="VZr-P5-htr"/>
+                        <outlet property="mediaTextField" destination="wlk-qE-uX8" id="DRt-Fb-MTA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XgA-8I-1cl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
