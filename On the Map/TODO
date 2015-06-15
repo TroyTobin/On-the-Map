@@ -1,9 +1,7 @@
 Add functionality to remove a pin
 Use Udacity user id as the "uniqueKey" in the "parse" message
-Report error if location lookup fails
 Segue to map view once pin loaded and centre on that location
 Create an API layer for use with the app
 Separate Views from API code
-Create constants file for API ID, APP Key and any other useful things
 Clean up
 Comment
