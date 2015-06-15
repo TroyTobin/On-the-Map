@@ -13,11 +13,19 @@ struct OTMStudent {
   var id: String
   var firstName: String?
   var lastName: String?
+  var latitude: Double?
+  var longitude: Double?
+  var location: String?
+  var mediaUrl: String?
   
   init(id: String) {
     self.id = id
     self.firstName = nil
     self.lastName = nil
+    self.latitude = nil
+    self.longitude = nil
+    self.location = nil
+    self.mediaUrl = nil
   }
   
   init(id: String, firstName: String, lastName: String) {

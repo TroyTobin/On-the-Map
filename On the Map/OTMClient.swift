@@ -188,8 +188,15 @@ class OTMClient: NSObject {
     self.geoLocateAddress(address) { success, placemarks, errorString in
       if let error = errorString {
         completionHandler(success: false, errorString: error)
+      } else if let student = self.student, placemark = placemarks[0] as? CLPlacemark {
+          println(placemark.location.coordinate.latitude)
+          println(placemark.location.coordinate.longitude)
+          self.student?.location = address
+          self.student?.latitude = placemark.location.coordinate.latitude
+          self.student?.longitude = placemark.location.coordinate.longitude
+          completionHandler(success: true, errorString: nil)
       } else {
-        completionHandler(success: true, errorString: nil)
+        completionHandler(success: false, errorString: "Unknown Error")
       }
     }
   }

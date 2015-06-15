@@ -38,8 +38,11 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
     OTMClient.sharedInstance().updateStudentPin(locationTextField.text) { success, errorString in
       if let error = errorString {
         self.displayError(error)
-      } else {
-        
+      } else if success {
+          dispatch_async(dispatch_get_main_queue(), {
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapMediaPinViewController") as! UINavigationController
+            self.presentViewController(controller, animated: true, completion: nil)
+          })
       }
     }
   }
