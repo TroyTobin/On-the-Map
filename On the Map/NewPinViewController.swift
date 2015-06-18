@@ -24,8 +24,22 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
     errorTextField.text = ""
     errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
     errorTextField.textColor = UIColor.blackColor()
+    
+    checkForUpdate()
   }
   
+  func checkForUpdate() {
+    if let student = OTMClient.sharedInstance().student {
+      OTMClient.sharedInstance().findStudentPin(student.id) { success, errorString in
+        if let error = errorString {
+          //
+        } else if success {
+          // We'll need to post
+          OTMClient.sharedInstance().student?.update = true
+        }
+      }
+    }
+  }
   
   @IBAction func cancelNewPin(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)

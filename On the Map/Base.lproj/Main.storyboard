@@ -352,7 +352,8 @@
                                         <exclude reference="H9I-no-CoT"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="220" width="400" height="200"/>
                                     <mask key="subviews">
                                         <include reference="sAR-A3-hwC"/>
                                     </mask>
@@ -621,15 +622,38 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OY2-VX-5Ds">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="vMG-3b-cm6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="vMG-3b-cm6"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="vMG-3b-cm6"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="X3I-Yd-Hi3" firstAttribute="top" secondItem="kmT-kG-rfL" secondAttribute="bottom" constant="65" id="7qu-Sg-zAl"/>
                             <constraint firstItem="wlk-qE-uX8" firstAttribute="top" secondItem="awe-WR-cFb" secondAttribute="bottom" id="CLs-wh-Gvi"/>
+                            <constraint firstItem="OY2-VX-5Ds" firstAttribute="trailing" secondItem="LRP-gG-weD" secondAttribute="trailingMargin" id="Eaf-1v-DB5"/>
+                            <constraint firstItem="kmT-kG-rfL" firstAttribute="top" secondItem="OY2-VX-5Ds" secondAttribute="bottom" constant="15" id="Otj-G1-aJg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rgs-SY-1xl" secondAttribute="trailing" constant="-16" id="RJ0-Br-edn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kmT-kG-rfL" secondAttribute="trailing" constant="49" id="Wcl-0a-vBc"/>
                             <constraint firstItem="X3I-Yd-Hi3" firstAttribute="top" secondItem="Rgs-SY-1xl" secondAttribute="bottom" id="Wwt-Tu-KDs"/>
                             <constraint firstItem="Rgs-SY-1xl" firstAttribute="leading" secondItem="LRP-gG-weD" secondAttribute="leadingMargin" constant="-16" id="fcy-o9-TJs"/>
+                            <constraint firstItem="OY2-VX-5Ds" firstAttribute="leading" secondItem="LRP-gG-weD" secondAttribute="leadingMargin" id="huO-sE-ye3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wlk-qE-uX8" secondAttribute="trailing" constant="-16" id="mFI-qJ-QKA"/>
                             <constraint firstItem="kmT-kG-rfL" firstAttribute="leading" secondItem="LRP-gG-weD" secondAttribute="leadingMargin" constant="49" id="oWr-LB-bsZ"/>
                             <constraint firstItem="Rgs-SY-1xl" firstAttribute="top" secondItem="awe-WR-cFb" secondAttribute="bottom" id="vnu-8l-d5N"/>
@@ -640,18 +664,22 @@
                                 <exclude reference="Rgs-SY-1xl"/>
                                 <exclude reference="kmT-kG-rfL"/>
                                 <exclude reference="wlk-qE-uX8"/>
+                                <exclude reference="OY2-VX-5Ds"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="7qu-Sg-zAl"/>
-                                <exclude reference="Wwt-Tu-KDs"/>
-                                <exclude reference="Wcl-0a-vBc"/>
-                                <exclude reference="oWr-LB-bsZ"/>
                                 <exclude reference="RJ0-Br-edn"/>
                                 <exclude reference="fcy-o9-TJs"/>
                                 <exclude reference="vnu-8l-d5N"/>
                                 <exclude reference="CLs-wh-Gvi"/>
                                 <exclude reference="mFI-qJ-QKA"/>
                                 <exclude reference="z7X-MT-lLi"/>
+                                <exclude reference="Eaf-1v-DB5"/>
+                                <exclude reference="huO-sE-ye3"/>
+                                <exclude reference="Otj-G1-aJg"/>
+                                <exclude reference="Wcl-0a-vBc"/>
+                                <exclude reference="oWr-LB-bsZ"/>
+                                <exclude reference="7qu-Sg-zAl"/>
+                                <exclude reference="Wwt-Tu-KDs"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -659,18 +687,22 @@
                                 <include reference="Rgs-SY-1xl"/>
                                 <include reference="kmT-kG-rfL"/>
                                 <include reference="wlk-qE-uX8"/>
+                                <include reference="OY2-VX-5Ds"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="7qu-Sg-zAl"/>
-                                <include reference="Wwt-Tu-KDs"/>
-                                <include reference="Wcl-0a-vBc"/>
-                                <include reference="oWr-LB-bsZ"/>
                                 <include reference="RJ0-Br-edn"/>
                                 <include reference="fcy-o9-TJs"/>
                                 <include reference="vnu-8l-d5N"/>
                                 <include reference="CLs-wh-Gvi"/>
                                 <include reference="mFI-qJ-QKA"/>
                                 <include reference="z7X-MT-lLi"/>
+                                <include reference="Eaf-1v-DB5"/>
+                                <include reference="huO-sE-ye3"/>
+                                <include reference="Otj-G1-aJg"/>
+                                <include reference="Wcl-0a-vBc"/>
+                                <include reference="oWr-LB-bsZ"/>
+                                <include reference="7qu-Sg-zAl"/>
+                                <include reference="Wwt-Tu-KDs"/>
                             </mask>
                         </variation>
                     </view>
@@ -683,7 +715,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="MapView" destination="Rgs-SY-1xl" id="VZr-P5-htr"/>
-                        <outlet property="mediaTextField" destination="wlk-qE-uX8" id="DRt-Fb-MTA"/>
+                        <outlet property="errorLabel" destination="OY2-VX-5Ds" id="A2z-eN-jcy"/>
+                        <outlet property="mediaUrl" destination="GJu-1h-9p3" id="0OZ-lZ-gk2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XgA-8I-1cl" userLabel="First Responder" sceneMemberID="firstResponder"/>

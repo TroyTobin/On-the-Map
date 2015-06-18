@@ -17,6 +17,7 @@ struct OTMStudent {
   var longitude: Double?
   var location: String?
   var mediaUrl: String?
+  var update: Bool
   
   init(id: String) {
     self.id = id
@@ -26,11 +27,17 @@ struct OTMStudent {
     self.longitude = nil
     self.location = nil
     self.mediaUrl = nil
+    self.update = false
   }
   
   init(id: String, firstName: String, lastName: String) {
     self.id = id
     self.firstName = firstName
     self.lastName = lastName
+    self.latitude = nil
+    self.longitude = nil
+    self.location = nil
+    self.mediaUrl = nil
+    self.update = false
   }
 }

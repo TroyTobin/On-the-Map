@@ -189,8 +189,6 @@ class OTMClient: NSObject {
       if let error = errorString {
         completionHandler(success: false, errorString: error)
       } else if let student = self.student, placemark = placemarks[0] as? CLPlacemark {
-          println(placemark.location.coordinate.latitude)
-          println(placemark.location.coordinate.longitude)
           self.student?.location = address
           self.student?.latitude = placemark.location.coordinate.latitude
           self.student?.longitude = placemark.location.coordinate.longitude
@@ -201,6 +199,56 @@ class OTMClient: NSObject {
     }
   }
   
+  func submitNewPin(completionHandler: (success: Bool, errorString: String?) -> Void) {
+    if let student = student, firstName = student.firstName, lastName = student.lastName, latitude = student.latitude, longitude = student.longitude, location = student.location, media = student.mediaUrl {
+      
+      var body = "{\"uniqueKey\": \"\(student.id)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(media)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
+      println(body)
+      /*
+      self.doPostReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, body: <#String#>, offset: <#Int#>, completionHandler: <#(result: AnyObject!, error: NSError?) -> Void##(result: AnyObject!, error: NSError?) -> Void#>) let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+        -          request.HTTPMethod = "POST"
+        -          request.addValue(OTMClient.Constants.AppId, forHTTPHeaderField: "X-Parse-Application-Id")
+        -          request.addValue(OTMClient.Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        -          request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        -          request.HTTPBody = dataUsingEncoding(NSUTF8StringEncoding)
+        -          let session = NSURLSession.sharedSession()
+        -          let task = session.dataTaskWithRequest(request) { data, response, error in
+       */
+    }
+  }
+  
+  func findStudentPin(key: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
+    
+    var httpHeader = [OTMClient.ParseHTTPHeader.APIKey, OTMClient.ParseHTTPHeader.ApplicationId]
+    if let value = OTMClient.ParseParamters.StudentLocationByKey["value"], key = OTMClient.ParseParamters.StudentLocationByKey["key"] {
+      var param = String(format: value, key)
+      var keyParam = OTMClient.escapeURLParameters([key: param])
+      println(keyParam)
+  
+      self.doGetReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, params: keyParam, header: httpHeader, offset: 0) { result, error in
+        println(result)
+        if let newError = error {
+          completionHandler(success: false, errorString: newError.localizedDescription)
+        } else {
+          if let results = result?.valueForKey("results") as? NSArray {
+            if results.count > 0 {
+              if let oldPin = results[0] as? NSDictionary, student = self.student {
+                self.student?.firstName = oldPin.valueForKey("first_name") as? String
+                self.student?.lastName = oldPin.valueForKey("last_name") as? String
+                self.student?.latitude = oldPin.valueForKey("latitude") as? Double
+                self.student?.longitude = oldPin.valueForKey("longitude") as? Double
+                completionHandler(success: true, errorString: nil)
+                return
+              }
+            }
+          }
+        }
+        completionHandler(success: false, errorString: nil)
+      }
+    }
+  }
+  
+    
   class func sharedInstance() -> OTMClient {
     struct Singleton {
       static var sharedInstance = OTMClient()

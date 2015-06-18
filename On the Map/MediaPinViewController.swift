@@ -13,7 +13,8 @@ import CoreLocation
 class MediaPinViewController: UIViewController, MKMapViewDelegate {
   
   @IBOutlet weak var MapView: MKMapView!
-  @IBOutlet weak var mediaTextField: UIView!
+  @IBOutlet weak var mediaUrl: UITextField!
+  @IBOutlet weak var errorLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,6 +43,28 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate {
   }
   
   @IBAction func submitNewPin(sender: AnyObject) {
-    
+    if let student = OTMClient.sharedInstance().student {
+      OTMClient.sharedInstance().student!.mediaUrl = mediaUrl.text
+      OTMClient.sharedInstance().submitNewPin() { success, errorString in
+        
+        if let error = errorString {
+          self.displayError(error)
+        } else if success {
+          dispatch_async(dispatch_get_main_queue(), {
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
+            self.presentViewController(controller, animated: true, completion: nil)
+          })
+        } else {
+          self.displayError("Unkown Error")
+        }
+      }
+    }
   }
+    
+    func displayError(error: String) {
+      dispatch_async(dispatch_get_main_queue(), {
+        self.errorLabel.text = error
+      })
+    }
+
 }

@@ -45,7 +45,7 @@ extension OTMClient {
   
   // MARK: - Parse Parameters
   struct ParseParamters {
-    static let StudentLocationByKey = ["field": "where", "value": "[\"uniqueKey\":\"%d\"]"]
+    static let StudentLocationByKey = ["key":"where", "value":"{\"uniqueKey\":\"%d\"}"]
   }
   
   // MARK: Parse HTTP Header
