@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MediaPinViewController: UIViewController, MKMapViewDelegate {
+class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
   
   @IBOutlet weak var MapView: MKMapView!
   @IBOutlet weak var mediaUrl: UITextField!
@@ -19,6 +19,11 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    
+    mediaUrl.font = UIFont(name: "AvenirNext-Medium", size: 25)
+    mediaUrl.textColor = UIColor.whiteColor()
+    mediaUrl.delegate = self
+    
     showPinLocation()
   }
   
@@ -66,5 +71,8 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate {
         self.errorLabel.text = error
       })
     }
-
+  
+  func textFieldDidBeginEditing(textField: UITextField) {
+    mediaUrl.text = ""
+  }
 }

@@ -629,7 +629,7 @@
                                     <constraint firstAttribute="height" constant="40" id="vMG-3b-cm6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -667,19 +667,19 @@
                                 <exclude reference="OY2-VX-5Ds"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Eaf-1v-DB5"/>
+                                <exclude reference="huO-sE-ye3"/>
+                                <exclude reference="7qu-Sg-zAl"/>
+                                <exclude reference="Wwt-Tu-KDs"/>
+                                <exclude reference="Otj-G1-aJg"/>
+                                <exclude reference="Wcl-0a-vBc"/>
+                                <exclude reference="oWr-LB-bsZ"/>
                                 <exclude reference="RJ0-Br-edn"/>
                                 <exclude reference="fcy-o9-TJs"/>
                                 <exclude reference="vnu-8l-d5N"/>
                                 <exclude reference="CLs-wh-Gvi"/>
                                 <exclude reference="mFI-qJ-QKA"/>
                                 <exclude reference="z7X-MT-lLi"/>
-                                <exclude reference="Eaf-1v-DB5"/>
-                                <exclude reference="huO-sE-ye3"/>
-                                <exclude reference="Otj-G1-aJg"/>
-                                <exclude reference="Wcl-0a-vBc"/>
-                                <exclude reference="oWr-LB-bsZ"/>
-                                <exclude reference="7qu-Sg-zAl"/>
-                                <exclude reference="Wwt-Tu-KDs"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -690,19 +690,19 @@
                                 <include reference="OY2-VX-5Ds"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Eaf-1v-DB5"/>
+                                <include reference="huO-sE-ye3"/>
+                                <include reference="7qu-Sg-zAl"/>
+                                <include reference="Wwt-Tu-KDs"/>
+                                <include reference="Otj-G1-aJg"/>
+                                <include reference="Wcl-0a-vBc"/>
+                                <include reference="oWr-LB-bsZ"/>
                                 <include reference="RJ0-Br-edn"/>
                                 <include reference="fcy-o9-TJs"/>
                                 <include reference="vnu-8l-d5N"/>
                                 <include reference="CLs-wh-Gvi"/>
                                 <include reference="mFI-qJ-QKA"/>
                                 <include reference="z7X-MT-lLi"/>
-                                <include reference="Eaf-1v-DB5"/>
-                                <include reference="huO-sE-ye3"/>
-                                <include reference="Otj-G1-aJg"/>
-                                <include reference="Wcl-0a-vBc"/>
-                                <include reference="oWr-LB-bsZ"/>
-                                <include reference="7qu-Sg-zAl"/>
-                                <include reference="Wwt-Tu-KDs"/>
                             </mask>
                         </variation>
                     </view>

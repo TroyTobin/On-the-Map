@@ -20,6 +20,8 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
     locationTextField.delegate = self
     
     locationTextField.text = "Enter Location Here"
+    locationTextField.font = UIFont(name: "AvenirNext-Medium", size: 25)
+    locationTextField.textColor = UIColor.whiteColor()
     
     errorTextField.text = ""
     errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
