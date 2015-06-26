@@ -13,10 +13,27 @@ class TabBarViewController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    var logoutButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "logoutAction:")
+    
+    self.navigationItem.setLeftBarButtonItem(logoutButtonItem, animated: false)
+    
     var pinBarButtonItem = UIBarButtonItem(image: UIImage(named: "Pin"), style:UIBarButtonItemStyle.Plain, target: self, action: "pinStudentLocation:")
     var refreshBarButtonItem = UIBarButtonItem(image: UIImage(named: "Refresh"), style:UIBarButtonItemStyle.Plain, target: self, action: "refreshStudentLocations:")
     
     self.navigationItem.setRightBarButtonItems([refreshBarButtonItem, pinBarButtonItem], animated: false);
+  }
+  
+  func logoutAction(sender: UIBarButtonItem) {
+    OTMClient.sharedInstance().logoutUdacity() { success, errorString in
+      if let error = errorString {
+        
+      } else {
+        dispatch_async(dispatch_get_main_queue(), {
+          let controller = self.storyboard!.instantiateViewControllerWithIdentifier("loginController") as! UIViewController
+          self.presentViewController(controller, animated: true, completion: nil)
+        })
+      }
+    }
   }
   
   func pinStudentLocation(sender: UIBarButtonItem) {

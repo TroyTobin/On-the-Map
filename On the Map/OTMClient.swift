@@ -108,6 +108,10 @@ class OTMClient: NSObject {
         let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
         completionHandler(result: nil, error: newError)
       } else {
+        if let httpResponse = response as? NSHTTPURLResponse {
+          let cookies = NSHTTPCookie.cookiesWithResponseHeaderFields(httpResponse.allHeaderFields, forURL: response.URL!) as! [NSHTTPCookie]
+          NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookies(cookies, forURL: response.URL!, mainDocumentURL: nil)
+        }
         let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset)) /* subset response data! */
         OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
       }
@@ -137,6 +141,37 @@ class OTMClient: NSObject {
         let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
         completionHandler(result: nil, error: newError)
       } else {
+        let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset)) /* subset response data! */
+        OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+      }
+    }
+    task.resume()
+    return true
+  }
+  
+  func doDeleteReq(baseURL: String, method: String, offset: Int, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
+    
+    let urlString = "\(baseURL)/\(method)"
+    var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+    request.HTTPMethod = "DELETE"
+
+    var xsrfCookie: NSHTTPCookie? = nil
+    let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+    for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
+      if cookie.name == "UY-XSRF-TOKEN" { xsrfCookie = cookie }
+    }
+    if let xsrfCookie = xsrfCookie {
+      request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
+    }
+    let task = self.session.dataTaskWithRequest(request) { data, response, error in
+      if let inError = error {
+        let userInfo = [NSLocalizedDescriptionKey : "Failed to Delete data"]
+        let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
+        completionHandler(result: nil, error: newError)
+      } else {
+        if let xsrfCookie = xsrfCookie {
+          sharedCookieStorage.deleteCookie(xsrfCookie)
+        }
         let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset)) /* subset response data! */
         OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
       }
@@ -208,6 +243,17 @@ class OTMClient: NSObject {
     }
   }
 
+  func logoutUdacity(completionHandler: (success: Bool, errorString: String?) -> Void) {
+    doDeleteReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, offset: 5) { result, error in
+      if let newError = error {
+        completionHandler(success: false, errorString: newError.localizedDescription)
+      } else {
+        completionHandler(success: true, errorString: nil)
+      }
+    }
+  }
+  
+  
   func geoLocateAddress(address: String, completionHandler: (success: Bool, placemarks:[AnyObject]!, errorString: String?) -> Void) {
     geoCoder.geocodeAddressString(address) { result, error in
       if let newError = error {
@@ -237,12 +283,11 @@ class OTMClient: NSObject {
   
   func submitNewPin(completionHandler: (success: Bool, errorString: String?) -> Void) {
     if let student = student, firstName = student.firstName, lastName = student.lastName, latitude = student.latitude, longitude = student.longitude, location = student.location, media = student.mediaUrl {
-
+      
       var body = "{\"uniqueKey\": \"\(student.id)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(media)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
       
       var header = [OTMClient.ParseHTTPHeader.ContentType, OTMClient.ParseHTTPHeader.APIKey, OTMClient.ParseHTTPHeader.ApplicationId]
-      
-      println(body)
+    
       
       if student.update {
         if let objectId = student.objectId {
@@ -251,7 +296,7 @@ class OTMClient: NSObject {
             if let newError = error {
               completionHandler(success: false, errorString: newError.localizedDescription)
             } else {
-              println(result)
+              completionHandler(success: true, errorString: nil)
             }
           }
         }
@@ -260,7 +305,7 @@ class OTMClient: NSObject {
           if let newError = error {
             completionHandler(success: false, errorString: newError.localizedDescription)
           } else {
-            println(result)
+            completionHandler(success: true, errorString: nil)
           }
         }
       }
@@ -274,10 +319,8 @@ class OTMClient: NSObject {
       var param = String(format: value, id)
       
       var keyParam = OTMClient.escapeURLParameters([key: param])
-      println(keyParam)
   
       self.doGetReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, params: keyParam, header: httpHeader, offset: 0) { result, error in
-        println(result)
         if let newError = error {
           completionHandler(success: false, errorString: newError.localizedDescription)
         } else {
