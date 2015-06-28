@@ -28,6 +28,62 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     loadStudentInformation()
   }
   
+  // Here we add disclosure button inside annotation window
+  func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    
+    println("viewForannotation")
+    if annotation is MKUserLocation {
+      //return nil
+      return nil
+    }
+    
+    let reuseId = "pin"
+    var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+    
+    if pinView == nil {
+      //println("Pinview was nil")
+      pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+      pinView!.canShowCallout = true
+      pinView!.animatesDrop = true
+    }
+    
+    var button = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton // button with info sign in it
+    if let annotation = annotation as? MKPointAnnotation {
+      var mediaLabel = UILabel()
+      mediaLabel.text = annotation.subtitle
+      mediaLabel.backgroundColor = UIColor.clearColor()
+      mediaLabel.textColor =  UIColor.clearColor()
+      
+      button.addSubview(mediaLabel)
+    }
+    button.addTarget(self, action: "loadMedia:", forControlEvents: UIControlEvents.TouchUpInside)
+
+    
+    pinView?.rightCalloutAccessoryView = button
+    
+    
+    return pinView
+  }
+  
+  func loadMedia(sender:UIButton!)
+  {
+    println("media")
+    for view in sender.subviews {
+      if let label = view as? UILabel {
+        println(label.text)
+        let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
+        var url = NSURL(string: label.text!)
+        if let url = url as NSURL! {
+          webViewController.urlRequest = NSMutableURLRequest(URL: url)
+        }
+        dispatch_async(dispatch_get_main_queue(), {
+          self.presentViewController(webViewController, animated: true, completion: nil)
+        })
+      }
+    }
+
+  }
+  
   func refreshStudentInformation(notification: NSNotification) {
     removeStudentInformation()
     loadStudentInformation()
