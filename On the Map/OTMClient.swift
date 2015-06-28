@@ -227,6 +227,12 @@ class OTMClient: NSObject {
                   if let newError = error {
                     completionHandler(success: false, errorString: newError)
                   } else {
+                    self.findStudentPin(student.id) {
+                      success, errorString in
+                      if let newError = errorString {
+                        completionHandler(success: false, errorString: newError)
+                      }
+                    }
                     completionHandler(success: true, errorString: nil)
                   }
                 }
@@ -327,8 +333,6 @@ class OTMClient: NSObject {
           if let results = result?.valueForKey("results") as? NSArray {
             if results.count > 0 {
               if let oldPin = results[0] as? NSDictionary, student = self.student {
-                self.student!.firstName = oldPin.valueForKey("firstName") as? String
-                self.student!.lastName = oldPin.valueForKey("lastName") as? String
                 self.student!.latitude = oldPin.valueForKey("latitude") as? Double
                 self.student!.longitude = oldPin.valueForKey("longitude") as? Double
                 self.student!.objectId = oldPin.valueForKey("objectId") as? String

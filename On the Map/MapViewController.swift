@@ -31,7 +31,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   // Here we add disclosure button inside annotation window
   func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
     
-    println("viewForannotation")
     if annotation is MKUserLocation {
       //return nil
       return nil
@@ -67,7 +66,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   
   func loadMedia(sender:UIButton!)
   {
-    println("media")
     for view in sender.subviews {
       if let label = view as? UILabel {
         println(label.text)
@@ -96,8 +94,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   
   
   func refreshMapView(notification: NSNotification) {
+    
+    var newRegion: MKCoordinateRegion? = nil
+    if let student = OTMClient.sharedInstance().student, latitude = student.latitude, longitude = student.longitude {
+      var newAnnotation = MKPointAnnotation()
+      newAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+      newRegion = MKCoordinateRegion()
+      var newSpan = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+      newRegion?.span = newSpan
+      newRegion?.span = newSpan;
+      newRegion?.center = newAnnotation.coordinate
+    }
+
     dispatch_async(dispatch_get_main_queue(), {
       self.MapView.addAnnotations(self.annotations)
+      if let newRegion = newRegion {
+        self.MapView.setRegion(newRegion, animated: true)
+      }
     })
   }
   

@@ -10,6 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
+  @IBOutlet weak var activityView: UIActivityIndicatorView!
   @IBOutlet weak var emailTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var errorTextField: UILabel!
@@ -22,6 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     emailTextField.delegate = self
     passwordTextField.delegate = self
     errorTextField.text = ""
+    activityView.hidden = true
     
     errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
     errorTextField.textColor = UIColor.whiteColor()
@@ -29,6 +31,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   
   @IBAction func loginButtonPressed(sender: AnyObject) {
     self.view.endEditing(true)
+    self.activityView.hidden = false
 
     OTMClient.sharedInstance().loginUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
       if success {
@@ -48,6 +51,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   func displayError(error: String) {
     println("error \(error)")
     dispatch_async(dispatch_get_main_queue(), {
+      self.activityView.hidden = true
       self.errorTextField.text = error
     })
   }

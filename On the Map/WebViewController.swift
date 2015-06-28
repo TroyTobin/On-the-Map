@@ -13,6 +13,7 @@ import UIKit
 class WebViewController: UIViewController, UIWebViewDelegate  {
   
   
+  @IBOutlet weak var activityView: UIActivityIndicatorView!
   @IBOutlet weak var errorTextField: UITextView!
   @IBOutlet weak var sadImage: UIImageView!
   @IBOutlet weak var webView: UIWebView!
@@ -23,6 +24,7 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
     self.webView.delegate = self
     self.webView.hidden = false
     self.sadImage.hidden = true
+    self.activityView.hidden = false
     
     
     errorTextField.text = ""
@@ -47,6 +49,7 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
   
   func webViewDidFinishLoad(webView: UIWebView) {
     println("here")
+    self.activityView.hidden = true
     println(webView.request!.URL!.absoluteString!)
   }
   
@@ -56,6 +59,7 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
   
   
   func displayError(error: String) {
+    self.activityView.hidden = true
     println("error \(error)")
     dispatch_async(dispatch_get_main_queue(), {
       self.webView.hidden = true
