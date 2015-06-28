@@ -70,4 +70,23 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
     
     return Cell
   }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
+    if let student = self.Students?[indexPath.row] as? NSDictionary {
+      if let mediaURL = student["mediaURL"] as? String {
+        var urlStr = mediaURL
+        if !urlStr.hasPrefix("http://") {
+          urlStr = "http://\(urlStr)"
+        }
+        var url = NSURL(string: urlStr)
+        if let url = url as NSURL! {
+          webViewController.urlRequest = NSMutableURLRequest(URL: url)
+        }
+      }
+    }
+    dispatch_async(dispatch_get_main_queue(), {
+      self.presentViewController(webViewController, animated: true, completion: nil)
+    })
+  }
 }

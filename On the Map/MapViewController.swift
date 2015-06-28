@@ -71,8 +71,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     for view in sender.subviews {
       if let label = view as? UILabel {
         println(label.text)
+        var urlStr = label.text!
+        if !urlStr.hasPrefix("http://") {
+          urlStr = "http://\(urlStr)"
+        }
+
         let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
-        var url = NSURL(string: label.text!)
+        var url = NSURL(string: urlStr)
         if let url = url as NSURL! {
           webViewController.urlRequest = NSMutableURLRequest(URL: url)
         }
