@@ -13,7 +13,7 @@ class TabBarViewController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-    var logoutButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "logoutAction:")
+    var logoutButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutAction:")
     
     self.navigationItem.setLeftBarButtonItem(logoutButtonItem, animated: false)
     

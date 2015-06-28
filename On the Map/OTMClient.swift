@@ -251,6 +251,7 @@ class OTMClient: NSObject {
 
   func logoutUdacity(completionHandler: (success: Bool, errorString: String?) -> Void) {
     doDeleteReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, offset: 5) { result, error in
+      self.student = nil
       if let newError = error {
         completionHandler(success: false, errorString: newError.localizedDescription)
       } else {

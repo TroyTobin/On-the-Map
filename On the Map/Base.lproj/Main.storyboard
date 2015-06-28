@@ -121,9 +121,6 @@
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="66p-g9-yIS">
                                 <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="190" y="522" width="20" height="20"/>
-                                </variation>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.6208009686" green="0.84774119879999998" blue="0.54297577659999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -163,6 +160,12 @@
                                 <exclude reference="66p-g9-yIS"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="25y-fa-hOw"/>
+                                <exclude reference="NjW-iO-Rh9"/>
+                                <exclude reference="iDK-08-cCs"/>
+                                <exclude reference="wtr-IM-alv"/>
+                                <exclude reference="P5S-nW-IcD"/>
+                                <exclude reference="jPJ-pU-5bq"/>
                                 <exclude reference="IBG-Hq-o8F"/>
                                 <exclude reference="lby-ba-Lgd"/>
                                 <exclude reference="Hwj-7T-SUn"/>
@@ -185,12 +188,6 @@
                                 <exclude reference="VvP-Lr-lxZ"/>
                                 <exclude reference="Vwx-y3-eDQ"/>
                                 <exclude reference="YQb-Wg-dXY"/>
-                                <exclude reference="25y-fa-hOw"/>
-                                <exclude reference="NjW-iO-Rh9"/>
-                                <exclude reference="iDK-08-cCs"/>
-                                <exclude reference="wtr-IM-alv"/>
-                                <exclude reference="P5S-nW-IcD"/>
-                                <exclude reference="jPJ-pU-5bq"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -199,6 +196,12 @@
                                 <include reference="66p-g9-yIS"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="25y-fa-hOw"/>
+                                <include reference="NjW-iO-Rh9"/>
+                                <include reference="iDK-08-cCs"/>
+                                <include reference="wtr-IM-alv"/>
+                                <include reference="P5S-nW-IcD"/>
+                                <include reference="jPJ-pU-5bq"/>
                                 <include reference="IBG-Hq-o8F"/>
                                 <include reference="lby-ba-Lgd"/>
                                 <include reference="Hwj-7T-SUn"/>
@@ -221,12 +224,6 @@
                                 <include reference="VvP-Lr-lxZ"/>
                                 <include reference="Vwx-y3-eDQ"/>
                                 <include reference="YQb-Wg-dXY"/>
-                                <include reference="25y-fa-hOw"/>
-                                <include reference="NjW-iO-Rh9"/>
-                                <include reference="iDK-08-cCs"/>
-                                <include reference="wtr-IM-alv"/>
-                                <include reference="P5S-nW-IcD"/>
-                                <include reference="jPJ-pU-5bq"/>
                             </mask>
                         </variation>
                     </view>
@@ -247,7 +244,7 @@
                 <tabBarController storyboardIdentifier="OnTheMapTabBarController" id="Rgr-tT-Jvp" customClass="TabBarViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="On the map" id="5jb-EA-BSI">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="PYf-1b-GRa"/>
+                        <barButtonItem key="leftBarButtonItem" id="PYf-1b-GRa"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="fWL-xR-9mk">
@@ -822,8 +819,7 @@
                                         <exclude reference="Ybt-MF-ky1"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="190" y="320" width="20" height="20"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="E7P-66-G0H"/>
                                         <include reference="Ybt-MF-ky1"/>
@@ -861,6 +857,7 @@
                                 <exclude reference="eVl-sG-U4s"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="hzj-Ca-gnr"/>
                                 <exclude reference="GBs-3e-J3J"/>
                                 <exclude reference="Ynf-Us-7Tt"/>
                                 <exclude reference="qIA-eh-deZ"/>
@@ -878,7 +875,6 @@
                                 <exclude reference="DP3-k2-N6p"/>
                                 <exclude reference="aJe-ck-b0a"/>
                                 <exclude reference="hcM-SI-1vG"/>
-                                <exclude reference="hzj-Ca-gnr"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -890,6 +886,7 @@
                                 <include reference="eVl-sG-U4s"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="hzj-Ca-gnr"/>
                                 <include reference="GBs-3e-J3J"/>
                                 <include reference="Ynf-Us-7Tt"/>
                                 <include reference="qIA-eh-deZ"/>
@@ -907,7 +904,6 @@
                                 <include reference="DP3-k2-N6p"/>
                                 <include reference="aJe-ck-b0a"/>
                                 <include reference="hcM-SI-1vG"/>
-                                <include reference="hzj-Ca-gnr"/>
                             </mask>
                         </variation>
                     </view>

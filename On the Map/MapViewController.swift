@@ -70,7 +70,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
       if let label = view as? UILabel {
         println(label.text)
         var urlStr = label.text!
-        if !urlStr.hasPrefix("http://") {
+        if !urlStr.hasPrefix("http://") && !urlStr.hasPrefix("https://") {
           urlStr = "http://\(urlStr)"
         }
 
@@ -100,17 +100,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
       var newAnnotation = MKPointAnnotation()
       newAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
       newRegion = MKCoordinateRegion()
-      var newSpan = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+      var newSpan = MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
       newRegion?.span = newSpan
       newRegion?.span = newSpan;
       newRegion?.center = newAnnotation.coordinate
     }
 
     dispatch_async(dispatch_get_main_queue(), {
-      self.MapView.addAnnotations(self.annotations)
       if let newRegion = newRegion {
         self.MapView.setRegion(newRegion, animated: true)
       }
+      self.MapView.addAnnotations(self.annotations)
     })
   }
   
