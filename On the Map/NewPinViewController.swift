@@ -13,7 +13,6 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
   
   @IBOutlet weak var activityView: UIActivityIndicatorView!
   @IBOutlet weak var locationTextField: UITextView!
-  @IBOutlet weak var errorTextField: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,10 +22,6 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
     locationTextField.text = "Enter Location Here"
     locationTextField.font = UIFont(name: "AvenirNext-Medium", size: 25)
     locationTextField.textColor = UIColor.whiteColor()
-    
-    errorTextField.text = ""
-    errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
-    errorTextField.textColor = UIColor.blackColor()
     
     dispatch_async(dispatch_get_main_queue(), {
       self.activityView.hidden = true
@@ -53,6 +48,7 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
   
   @IBAction func findLocationOnMap(sender: AnyObject) {
     self.view.endEditing(true)
+    
     dispatch_async(dispatch_get_main_queue(), {
       self.activityView.hidden = false
     })
@@ -63,25 +59,23 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
         self.activityView.hidden = true
       })
       
-      if let error = errorString {
-        self.displayError(error)
-      } else if success {
-          dispatch_async(dispatch_get_main_queue(), {
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapMediaPinViewController") as! UINavigationController
+      if success {
+        dispatch_async(dispatch_get_main_queue(), {
+          let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapMediaPinViewController") as! UINavigationController
             self.presentViewController(controller, animated: true, completion: nil)
-          })
+        })
+        return
+      }
+      
+      if let error = errorString {
+        ErrorViewController.displayError(self, error: error, title: "Geocode Failed")
+      } else {
+        ErrorViewController.displayError(self, error: "Unknown Error", title: "Geocode Failed")
       }
     }
   }
   
-  func displayError(error: String) {
-    println("error \(error)")
-    
-    ErrorViewController.displayError(self, error: error, title: "Login Failed")
-  }
-  
   func textViewDidBeginEditing(textView: UITextView) {
-    errorTextField.text = ""
     locationTextField.text = ""
   }
 }

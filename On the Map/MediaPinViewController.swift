@@ -15,7 +15,6 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
   @IBOutlet weak var activityView: UIActivityIndicatorView!
   @IBOutlet weak var MapView: MKMapView!
   @IBOutlet weak var mediaUrl: UITextField!
-  @IBOutlet weak var errorLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -58,30 +57,31 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
       dispatch_async(dispatch_get_main_queue(), {
         self.activityView.hidden = false
       })
+      
       OTMClient.sharedInstance().student!.mediaUrl = mediaUrl.text
       OTMClient.sharedInstance().submitNewPin() { success, errorString in
         
         dispatch_async(dispatch_get_main_queue(), {
           self.activityView.hidden = true
         })
-        if let error = errorString {
-          self.displayError(error)
-        } else if success {
+        
+        if success {
           dispatch_async(dispatch_get_main_queue(), {
             let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
             self.presentViewController(controller, animated: true, completion: nil)
           })
+          return
+        }
+        
+        if let error = errorString {
+          ErrorViewController.displayError(self, error: error, title: "Pin Update Failed")
         } else {
-          self.displayError("Unkown Error")
+          ErrorViewController.displayError(self, error: "Unknown Error", title: "Pin Update Failed")
         }
       }
+    } else {
+      ErrorViewController.displayError(self, error: "No student loaded", title: "Pin Update Failed")
     }
-  }
-    
-  func displayError(error: String) {
-    println("error \(error)")
-    
-    ErrorViewController.displayError(self, error: error, title: "Login Failed")
   }
   
   func textFieldDidBeginEditing(textField: UITextField) {

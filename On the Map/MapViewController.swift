@@ -141,16 +141,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }
               }
             }
-          }
+          } // for
+          return
         }
       }
+      
+      if let error = errorString {
+        ErrorViewController.displayError(self, error: error, title: "Load Student Information Failed")
+      } else {
+        ErrorViewController.displayError(self, error: "Unknown Error", title: "Load Student Information Failed")
+      }
     }
-  }
-  
-  func displayError(error: String) {
-    println("error \(error)")
-    
-    ErrorViewController.displayError(self, error: error, title: "Login Failed")
   }
   
 }

@@ -25,13 +25,18 @@ class TabBarViewController: UITabBarController {
   
   func logoutAction(sender: UIBarButtonItem) {
     OTMClient.sharedInstance().logoutUdacity() { success, errorString in
-      if let error = errorString {
-        
-      } else {
+      if success {
         dispatch_async(dispatch_get_main_queue(), {
           let controller = self.storyboard!.instantiateViewControllerWithIdentifier("loginController") as! UIViewController
           self.presentViewController(controller, animated: true, completion: nil)
         })
+        return
+      }
+      
+      if let error = errorString {
+        ErrorViewController.displayError(self, error: error, title: "Logout Failed")
+      } else {
+        ErrorViewController.displayError(self, error: "Unknown Error", title: "Logout Failed")
       }
     }
   }
@@ -45,12 +50,6 @@ class TabBarViewController: UITabBarController {
   
   func refreshStudentLocations(sender: UIBarButtonItem) {
     NSNotificationCenter.defaultCenter().postNotificationName("refreshView", object: nil)
-  }
-  
-  func displayError(error: String) {
-    println("error \(error)")
-    
-    ErrorViewController.displayError(self, error: error, title: "Login Failed")
   }
   
 }

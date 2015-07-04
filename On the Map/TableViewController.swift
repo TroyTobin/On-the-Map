@@ -37,12 +37,18 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
   
   func loadStudentInformation() {
     OTMClient.sharedInstance().loadStudentLocations() { result, errorString in
+      
       if let parsedResult = result as? NSDictionary {
         if let results = parsedResult.valueForKey("results") as? NSArray {
           self.Students = results
           NSNotificationCenter.defaultCenter().postNotificationName("refreshListView", object: nil)
           return
         }
+      }
+      if let error = errorString {
+        ErrorViewController.displayError(self, error: error, title: "Load Student Failed")
+      } else {
+        ErrorViewController.displayError(self, error: "Unknown Error", title: "Load Student Failed")
       }
     }
     
@@ -87,15 +93,9 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
         }
       }
     }
+    
     dispatch_async(dispatch_get_main_queue(), {
       self.presentViewController(webViewController, animated: true, completion: nil)
     })
   }
-  
-  func displayError(error: String) {
-    println("error \(error)")
-    
-    ErrorViewController.displayError(self, error: error, title: "Login Failed")
-  }
-  
 }

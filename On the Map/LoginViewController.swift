@@ -22,11 +22,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     /// Set this to be the delegate for the login text fields
     emailTextField.delegate = self
     passwordTextField.delegate = self
-    errorTextField.text = ""
     activityView.hidden = true
-    
-    errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
-    errorTextField.textColor = UIColor.whiteColor()
   }
   
   @IBAction func loginButtonPressed(sender: AnyObject) {
@@ -34,6 +30,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     self.activityView.hidden = false
 
     OTMClient.sharedInstance().loginUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
+      
+      dispatch_async(dispatch_get_main_queue(), {
+        self.activityView.hidden = true
+      })
+      
       if success {
         dispatch_async(dispatch_get_main_queue(), {
           let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
@@ -41,25 +42,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
 
       } else if let error = errorString {
-        self.displayError(error)
+        ErrorViewController.displayError(self, error: error, title: "Login Failed")
       } else {
-        self.displayError("Login Failed")
+        ErrorViewController.displayError(self, error: "Unknown Error", title: "Login Failed")
       }
     }
-  }
-    
-  func displayError(error: String) {
-    println("error \(error)")
-    dispatch_async(dispatch_get_main_queue(), {
-      self.activityView.hidden = true
-    })
-    
-    ErrorViewController.displayError(self, error: error, title: "Login Failed")
   }
   
   func textFieldDidBeginEditing(textField: UITextField) {
     textField.text = ""
-    errorTextField.text = ""
     if(textField == passwordTextField){
       passwordTextField.secureTextEntry = true;
     }

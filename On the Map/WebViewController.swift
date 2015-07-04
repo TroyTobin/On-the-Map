@@ -60,7 +60,6 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
   
   func displayError(error: String) {
     self.activityView.hidden = true
-    println("error \(error)")
     dispatch_async(dispatch_get_main_queue(), {
       self.webView.hidden = true
       self.errorTextField.text = error
