@@ -46,4 +46,11 @@ class TabBarViewController: UITabBarController {
   func refreshStudentLocations(sender: UIBarButtonItem) {
     NSNotificationCenter.defaultCenter().postNotificationName("refreshView", object: nil)
   }
+  
+  func displayError(error: String) {
+    println("error \(error)")
+    
+    ErrorViewController.displayError(self, error: error, title: "Login Failed")
+  }
+  
 }

@@ -11,6 +11,7 @@ import CoreLocation
 
 class NewPinViewController: UIViewController, UITextViewDelegate {
   
+  @IBOutlet weak var activityView: UIActivityIndicatorView!
   @IBOutlet weak var locationTextField: UITextView!
   @IBOutlet weak var errorTextField: UILabel!
   
@@ -26,6 +27,10 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
     errorTextField.text = ""
     errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
     errorTextField.textColor = UIColor.blackColor()
+    
+    dispatch_async(dispatch_get_main_queue(), {
+      self.activityView.hidden = true
+    })
     
     checkForUpdate()
   }
@@ -48,8 +53,16 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
   
   @IBAction func findLocationOnMap(sender: AnyObject) {
     self.view.endEditing(true)
+    dispatch_async(dispatch_get_main_queue(), {
+      self.activityView.hidden = false
+    })
     
     OTMClient.sharedInstance().updateStudentPin(locationTextField.text) { success, errorString in
+      
+      dispatch_async(dispatch_get_main_queue(), {
+        self.activityView.hidden = true
+      })
+      
       if let error = errorString {
         self.displayError(error)
       } else if success {
@@ -63,10 +76,8 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
   
   func displayError(error: String) {
     println("error \(error)")
-    dispatch_async(dispatch_get_main_queue(), {
-      self.errorTextField.text = error
-      self.locationTextField.text = "Enter Location Here"
-    })
+    
+    ErrorViewController.displayError(self, error: error, title: "Login Failed")
   }
   
   func textViewDidBeginEditing(textView: UITextView) {

@@ -12,6 +12,7 @@ import CoreLocation
 
 class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
   
+  @IBOutlet weak var activityView: UIActivityIndicatorView!
   @IBOutlet weak var MapView: MKMapView!
   @IBOutlet weak var mediaUrl: UITextField!
   @IBOutlet weak var errorLabel: UILabel!
@@ -23,6 +24,10 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
     mediaUrl.font = UIFont(name: "AvenirNext-Medium", size: 25)
     mediaUrl.textColor = UIColor.whiteColor()
     mediaUrl.delegate = self
+    
+    dispatch_async(dispatch_get_main_queue(), {
+      self.activityView.hidden = true
+    })
     
     showPinLocation()
   }
@@ -49,9 +54,16 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
   
   @IBAction func submitNewPin(sender: AnyObject) {
     if let student = OTMClient.sharedInstance().student {
+      
+      dispatch_async(dispatch_get_main_queue(), {
+        self.activityView.hidden = false
+      })
       OTMClient.sharedInstance().student!.mediaUrl = mediaUrl.text
       OTMClient.sharedInstance().submitNewPin() { success, errorString in
         
+        dispatch_async(dispatch_get_main_queue(), {
+          self.activityView.hidden = true
+        })
         if let error = errorString {
           self.displayError(error)
         } else if success {
@@ -66,11 +78,11 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
     }
   }
     
-    func displayError(error: String) {
-      dispatch_async(dispatch_get_main_queue(), {
-        self.errorLabel.text = error
-      })
-    }
+  func displayError(error: String) {
+    println("error \(error)")
+    
+    ErrorViewController.displayError(self, error: error, title: "Login Failed")
+  }
   
   func textFieldDidBeginEditing(textField: UITextField) {
     mediaUrl.text = ""

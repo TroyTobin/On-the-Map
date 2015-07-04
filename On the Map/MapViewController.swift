@@ -12,7 +12,6 @@ import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate {
   
-  
   @IBOutlet weak var MapView: MKMapView!
   
   var annotations = [MKAnnotation]()
@@ -146,6 +145,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
       }
     }
+  }
+  
+  func displayError(error: String) {
+    println("error \(error)")
+    
+    ErrorViewController.displayError(self, error: error, title: "Login Failed")
   }
   
 }

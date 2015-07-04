@@ -41,9 +41,11 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
         if let results = parsedResult.valueForKey("results") as? NSArray {
           self.Students = results
           NSNotificationCenter.defaultCenter().postNotificationName("refreshListView", object: nil)
+          return
         }
       }
     }
+    
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -89,4 +91,11 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
       self.presentViewController(webViewController, animated: true, completion: nil)
     })
   }
+  
+  func displayError(error: String) {
+    println("error \(error)")
+    
+    ErrorViewController.displayError(self, error: error, title: "Login Failed")
+  }
+  
 }

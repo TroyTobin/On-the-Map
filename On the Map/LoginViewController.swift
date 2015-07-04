@@ -52,8 +52,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     println("error \(error)")
     dispatch_async(dispatch_get_main_queue(), {
       self.activityView.hidden = true
-      self.errorTextField.text = error
     })
+    
+    ErrorViewController.displayError(self, error: error, title: "Login Failed")
   }
   
   func textFieldDidBeginEditing(textField: UITextField) {
