@@ -18,6 +18,7 @@
 		53CF1DFB1B23ED9100BFD900 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF1DFA1B23ED9100BFD900 /* TableViewController.swift */; };
 		53CF1DFD1B2714BC00BFD900 /* OTMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF1DFC1B2714BC00BFD900 /* OTMConstants.swift */; };
 		53CF1DFF1B27155200BFD900 /* OTMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CF1DFE1B27155200BFD900 /* OTMClient.swift */; };
+		53DD55091B4826D00044225B /* OTMNetLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DD55081B4826D00044225B /* OTMNetLayer.swift */; };
 		53ED5A191B1F255700A0A377 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED5A181B1F255700A0A377 /* AppDelegate.swift */; };
 		53ED5A1B1B1F255700A0A377 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED5A1A1B1F255700A0A377 /* LoginViewController.swift */; };
 		53ED5A1E1B1F255700A0A377 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53ED5A1C1B1F255700A0A377 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		53CF1DFA1B23ED9100BFD900 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		53CF1DFC1B2714BC00BFD900 /* OTMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConstants.swift; sourceTree = "<group>"; };
 		53CF1DFE1B27155200BFD900 /* OTMClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMClient.swift; sourceTree = "<group>"; };
+		53DD55081B4826D00044225B /* OTMNetLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMNetLayer.swift; sourceTree = "<group>"; };
 		53ED5A131B1F255700A0A377 /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED5A171B1F255700A0A377 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53ED5A181B1F255700A0A377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				53ED5A1F1B1F255700A0A377 /* Images.xcassets */,
 				53ED5A211B1F255700A0A377 /* LaunchScreen.xib */,
 				53ED5A161B1F255700A0A377 /* Supporting Files */,
+				53DD55081B4826D00044225B /* OTMNetLayer.swift */,
 			);
 			path = "On the Map";
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				53C34D9E1B3FB76E00D5ABDA /* WebViewController.swift in Sources */,
 				53ED5A1B1B1F255700A0A377 /* LoginViewController.swift in Sources */,
 				53CF1DFF1B27155200BFD900 /* OTMClient.swift in Sources */,
+				53DD55091B4826D00044225B /* OTMNetLayer.swift in Sources */,
 				53CF1DFB1B23ED9100BFD900 /* TableViewController.swift in Sources */,
 				53CF1DF51B23456900BFD900 /* NewPinViewController.swift in Sources */,
 				53292FA41B21BBDE00237FD9 /* MapViewController.swift in Sources */,

@@ -13,178 +13,22 @@ import CoreLocation
 
 class OTMClient: NSObject {
   
-  var session: NSURLSession
   var geoCoder: CLGeocoder
   var student: OTMStudent?
+  var otmNet: OTMNetLayer
   
   override init() {
-    session = NSURLSession.sharedSession()
     geoCoder = CLGeocoder()
     student = nil
+    otmNet = OTMNetLayer()
     super.init()
-  }
-  
-  class func escapeURLParameters(params: [String : String]?) -> String {
-    
-    var urlParameters = ""
-    
-    if let inParams = params {
-      urlParameters += "?"
-      for (key, value) in inParams {
-
-        let escapedValue = value.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-        urlParameters += "\(key)=\(escapedValue!)&"
-      }
-    }
-    
-    return urlParameters
-  }
-  
-  class func parseJSONWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
-    
-    var parsingError: NSError? = nil
-    
-    let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
-    
-    if let error = parsingError {
-      completionHandler(result: nil, error: error)
-    } else {
-      completionHandler(result: parsedResult, error: nil)
-    }
-  }
-  
-  func doGetReq(baseURL: String, method: String, params: String?, header: [NSDictionary]?, offset: Int,  completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
-    var fullUrl: NSURL? = nil
-    if let inParams = params {
-      fullUrl = NSURL(string: "\(baseURL)/\(method)/\(inParams)")
-    } else {
-      fullUrl = NSURL(string:"\(baseURL)/\(method)")
-    }
-    let request = NSMutableURLRequest(URL: fullUrl!)
-    request.HTTPMethod = "GET"
-    if let inHeader = header {
-      for item in inHeader {
-        if let value = item.valueForKey("value") as? String {
-          if let field = item.valueForKey("field") as? String {
-            request.addValue(value, forHTTPHeaderField: field)
-          }
-        }
-      }
-    }
-    
-    let task = self.session.dataTaskWithRequest(request) { data, response, error in
-      if let inError = error {
-        let userInfo = [NSLocalizedDescriptionKey : "Failed to Get data"]
-        let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
-        completionHandler(result: nil, error: newError)
-      } else {
-        let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset))
-        OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
-      }
-    }
-    task.resume()
-    return true
-  }
-  
-  func doPostReq(baseURL: String, method: String, header: [NSDictionary]?, body: String, offset: Int, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
-    
-    let urlString = "\(baseURL)/\(method)"
-    var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-    request.HTTPMethod = "POST"
-    if let inHeader = header {
-      for item in inHeader {
-        if let value = item.valueForKey("value") as? String {
-          if let field = item.valueForKey("field") as? String {
-            request.addValue(value, forHTTPHeaderField: field)
-          }
-        }
-      }
-    }
-    request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
-    
-    let task = self.session.dataTaskWithRequest(request) { data, response, error in
-      if let inError = error {
-        let userInfo = [NSLocalizedDescriptionKey : "Failed to Post data"]
-        let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
-        completionHandler(result: nil, error: newError)
-      } else {
-        if let httpResponse = response as? NSHTTPURLResponse {
-          let cookies = NSHTTPCookie.cookiesWithResponseHeaderFields(httpResponse.allHeaderFields, forURL: response.URL!) as! [NSHTTPCookie]
-          NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookies(cookies, forURL: response.URL!, mainDocumentURL: nil)
-        }
-        let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset)) /* subset response data! */
-        OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
-      }
-    }
-    task.resume()
-    return true
-  }
-  
-  func doPutReq(baseURL: String, header: [NSDictionary]?, body: String, offset: Int, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
-    
-    var request = NSMutableURLRequest(URL: NSURL(string: baseURL)!)
-    request.HTTPMethod = "PUT"
-    if let inHeader = header {
-      for item in inHeader {
-        if let value = item.valueForKey("value") as? String {
-          if let field = item.valueForKey("field") as? String {
-            request.addValue(value, forHTTPHeaderField: field)
-          }
-        }
-      }
-    }
-    request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
-    
-    let task = self.session.dataTaskWithRequest(request) { data, response, error in
-      if let inError = error {
-        let userInfo = [NSLocalizedDescriptionKey : "Failed to Post data"]
-        let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
-        completionHandler(result: nil, error: newError)
-      } else {
-        let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset)) /* subset response data! */
-        OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
-      }
-    }
-    task.resume()
-    return true
-  }
-  
-  func doDeleteReq(baseURL: String, method: String, offset: Int, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> Bool {
-    
-    let urlString = "\(baseURL)/\(method)"
-    var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-    request.HTTPMethod = "DELETE"
-
-    var xsrfCookie: NSHTTPCookie? = nil
-    let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-    for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
-      if cookie.name == "UY-XSRF-TOKEN" { xsrfCookie = cookie }
-    }
-    if let xsrfCookie = xsrfCookie {
-      request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
-    }
-    let task = self.session.dataTaskWithRequest(request) { data, response, error in
-      if let inError = error {
-        let userInfo = [NSLocalizedDescriptionKey : "Failed to Delete data"]
-        let newError =  NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
-        completionHandler(result: nil, error: newError)
-      } else {
-        if let xsrfCookie = xsrfCookie {
-          sharedCookieStorage.deleteCookie(xsrfCookie)
-        }
-        let newData = data.subdataWithRange(NSMakeRange(offset, data.length - offset)) /* subset response data! */
-        OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
-      }
-    }
-    task.resume()
-    return true
   }
   
   func loadStudentLocations(completionHandler: (result: AnyObject?, errorString: String?) -> Void) {
     
     var httpHeader = [OTMClient.ParseHTTPHeader.APIKey, OTMClient.ParseHTTPHeader.ApplicationId]
     
-    doGetReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, params: nil, header: httpHeader, offset: 0) { result, error in
+    otmNet.doGetReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, params: nil, header: httpHeader, offset: 0) { result, error in
       if let inError = error {
         completionHandler(result: nil, errorString: inError.localizedDescription)
       } else {
@@ -194,7 +38,7 @@ class OTMClient: NSObject {
   }
   
   func getStudentInformation(key: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
-    doGetReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Users, params: key, header: nil, offset: 5) { result, error in
+    otmNet.doGetReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Users, params: key, header: nil, offset: 5) { result, error in
       if let newError = error {
         completionHandler(success: false, errorString: error?.localizedDescription)
       } else {
@@ -214,7 +58,7 @@ class OTMClient: NSObject {
   func loginUdacity(username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
     var body = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
     var header = [OTMClient.UdacityHTTPHeader.Accept, OTMClient.UdacityHTTPHeader.ContentType]
-    doPostReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, header:header, body: body, offset: 5) { result, error in
+    otmNet.doPostReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, header:header, body: body, offset: 5) { result, error in
       if let newError = error {
         completionHandler(success: false, errorString: newError.localizedDescription)
       } else if let account = result?.valueForKey("account") as? NSDictionary {
@@ -250,11 +94,11 @@ class OTMClient: NSObject {
   }
 
   func logoutUdacity(completionHandler: (success: Bool, errorString: String?) -> Void) {
-    doDeleteReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, offset: 5) { result, error in
-      self.student = nil
+    otmNet.doDeleteReq(OTMClient.Constants.BaseURLUdacity, method: OTMClient.UdacityMethods.Session, offset: 5) { result, error in
       if let newError = error {
         completionHandler(success: false, errorString: newError.localizedDescription)
       } else {
+        self.clearStudent()
         completionHandler(success: true, errorString: nil)
       }
     }
@@ -299,7 +143,7 @@ class OTMClient: NSObject {
       if student.update {
         if let objectId = student.objectId {
           var putUrl = "\(OTMClient.Constants.BaseURLParse)/\(OTMClient.ParseMethods.StudentLocation)/\(objectId)"
-          self.doPutReq(putUrl, header: header, body: body, offset: 0) { result, error in
+          otmNet.doPutReq(putUrl, header: header, body: body, offset: 0) { result, error in
             if let newError = error {
               completionHandler(success: false, errorString: newError.localizedDescription)
             } else {
@@ -308,7 +152,7 @@ class OTMClient: NSObject {
           }
         }
       } else {
-        self.doPostReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, header: header, body: body, offset: 0) { result, error in
+        otmNet.doPostReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, header: header, body: body, offset: 0) { result, error in
           if let newError = error {
             completionHandler(success: false, errorString: newError.localizedDescription)
           } else {
@@ -325,9 +169,9 @@ class OTMClient: NSObject {
     if let value = OTMClient.ParseParamters.StudentLocationByKey["value"], key = OTMClient.ParseParamters.StudentLocationByKey["key"], id = keyID.toInt() {
       var param = String(format: value, id)
       
-      var keyParam = OTMClient.escapeURLParameters([key: param])
+      var keyParam = OTMNetLayer.escapeURLParameters([key: param])
   
-      self.doGetReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, params: keyParam, header: httpHeader, offset: 0) { result, error in
+      otmNet.doGetReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, params: keyParam, header: httpHeader, offset: 0) { result, error in
         if let newError = error {
           completionHandler(success: false, errorString: newError.localizedDescription)
         } else {
@@ -346,6 +190,10 @@ class OTMClient: NSObject {
         completionHandler(success: false, errorString: nil)
       }
     }
+  }
+  
+  func clearStudent() {
+    self.student = nil
   }
   
     
