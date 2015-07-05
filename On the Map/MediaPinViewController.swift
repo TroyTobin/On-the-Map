@@ -16,6 +16,8 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
   @IBOutlet weak var MapView: MKMapView!
   @IBOutlet weak var mediaUrl: UITextField!
   
+  var tapRecognizer: UITapGestureRecognizer?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
@@ -29,6 +31,35 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
     })
     
     showPinLocation()
+    
+    tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+    tapRecognizer?.numberOfTapsRequired = 1
+    addKeyboardDismissRecognizer()
+    
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    self.removeKeyboardDismissRecognizer()
+  }
+  
+  func addKeyboardDismissRecognizer() {
+    self.view.addGestureRecognizer(tapRecognizer!)
+  }
+  
+  func removeKeyboardDismissRecognizer() {
+    self.view.removeGestureRecognizer(tapRecognizer!)
+  }
+  
+  func handleSingleTap(recognizer: UITapGestureRecognizer) {
+    self.view.endEditing(true)
+  }
+  
+  
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    /// dismiss the keyboard
+    return textField.resignFirstResponder()
   }
   
   func showPinLocation() {

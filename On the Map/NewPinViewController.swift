@@ -13,6 +13,7 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
   
   @IBOutlet weak var activityView: UIActivityIndicatorView!
   @IBOutlet weak var locationTextField: UITextView!
+  var tapRecognizer: UITapGestureRecognizer? = nil
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,11 +24,35 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
     locationTextField.font = UIFont(name: "AvenirNext-Medium", size: 25)
     locationTextField.textColor = UIColor.whiteColor()
     
+    
+    
+    tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+    tapRecognizer?.numberOfTapsRequired = 1
+    addKeyboardDismissRecognizer()
+    
     dispatch_async(dispatch_get_main_queue(), {
       self.activityView.hidden = true
     })
     
     checkForUpdate()
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    self.removeKeyboardDismissRecognizer()
+  }
+  
+  func addKeyboardDismissRecognizer() {
+    self.view.addGestureRecognizer(tapRecognizer!)
+  }
+
+  func removeKeyboardDismissRecognizer() {
+    self.view.removeGestureRecognizer(tapRecognizer!)
+  }
+
+  func handleSingleTap(recognizer: UITapGestureRecognizer) {
+    self.view.endEditing(true)
   }
   
   func checkForUpdate() {
