@@ -9,7 +9,6 @@ import UIKit
 
 class StudentTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
-  var Students: NSArray? = nil
   @IBOutlet var TableView: UITableView!
   
   
@@ -38,42 +37,28 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
   func loadStudentInformation() {
     OTMClient.sharedInstance().loadStudentLocations() { result, errorString in
       
-      if let parsedResult = result as? NSDictionary {
-        if let results = parsedResult.valueForKey("results") as? NSArray {
-          self.Students = results
-          NSNotificationCenter.defaultCenter().postNotificationName("refreshListView", object: nil)
-          return
-        }
-      }
       if let error = errorString {
-        ErrorViewController.displayError(self, error: error, title: "Load Student Failed")
-      } else {
-        ErrorViewController.displayError(self, error: "Unknown Error", title: "Load Student Failed")
+        ErrorViewController.displayError(self, error: error, title: "Load Student Information Failed")
       }
+      
+      NSNotificationCenter.defaultCenter().postNotificationName("refreshListView", object: nil)
     }
-    
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let students = Students {
-      return students.count
-    }
-    return 0
+      return OTMClient.sharedInstance().students.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let Cell = tableView.dequeueReusableCellWithIdentifier("StudentTableCell") as! UITableViewCell
     
-    if let student = self.Students?[indexPath.row] as? NSDictionary {
-      if let firstName = student["firstName"] as? String {
-        if let lastName = student["lastName"] as? String {
-          if let media = student["mediaURL"] as? String {
-            Cell.textLabel!.text = "\(firstName) \(lastName)"
-            Cell.detailTextLabel!.text = media
-          }
-        }
-      }
+    var student = OTMClient.sharedInstance().students[indexPath.row]
+    
+    if let firstName = student.firstName, lastName = student.lastName, mediaUrl = student.mediaUrl {
+      Cell.textLabel!.text = "\(firstName) \(lastName)"
+      Cell.detailTextLabel!.text = mediaUrl
     }
+    
     Cell.imageView!.image = UIImage(named: "Pin")
     
     return Cell
@@ -81,16 +66,16 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
-    if let student = self.Students?[indexPath.row] as? NSDictionary {
-      if let mediaURL = student["mediaURL"] as? String {
-        var urlStr = mediaURL
-        if !urlStr.hasPrefix("http://") {
-          urlStr = "http://\(urlStr)"
-        }
-        var url = NSURL(string: urlStr)
-        if let url = url as NSURL! {
-          webViewController.urlRequest = NSMutableURLRequest(URL: url)
-        }
+    var student = OTMClient.sharedInstance().students[indexPath.row]
+    
+    if let mediaUrl = student.mediaUrl {
+      var urlStr = mediaUrl
+      if !urlStr.hasPrefix("http://") {
+        urlStr = "http://\(urlStr)"
+      }
+      var url = NSURL(string: urlStr)
+      if let url = url as NSURL! {
+        webViewController.urlRequest = NSMutableURLRequest(URL: url)
       }
     }
     

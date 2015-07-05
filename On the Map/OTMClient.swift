@@ -17,6 +17,8 @@ class OTMClient: NSObject {
   var student: OTMStudent?
   var otmNet: OTMNetLayer
   
+  var students = [OTMStudent]()
+  
   override init() {
     geoCoder = CLGeocoder()
     student = nil
@@ -26,12 +28,22 @@ class OTMClient: NSObject {
   
   func loadStudentLocations(completionHandler: (result: AnyObject?, errorString: String?) -> Void) {
     
+    students.removeAll(keepCapacity: false)
+    
     var httpHeader = [OTMClient.ParseHTTPHeader.APIKey, OTMClient.ParseHTTPHeader.ApplicationId]
     
     otmNet.doGetReq(OTMClient.Constants.BaseURLParse, method: OTMClient.ParseMethods.StudentLocation, params: nil, header: httpHeader, offset: 0) { result, error in
       if let inError = error {
         completionHandler(result: nil, errorString: inError.localizedDescription)
       } else {
+        if let parsedResults = result.valueForKey("results") as? NSArray {
+          for entry in parsedResults {
+            if let id = entry["uniqueKey"] as? String, firstName = entry["firstName"] as? String, lastName = entry["lastName"] as? String, latitude = entry["latitude"] as? Double, longitude = entry["longitude"] as? Double, mediaUrl = entry["mediaURL"] as? String {
+              var newStudent = OTMStudent(id: id, firstName: firstName, lastName: lastName, latitude: latitude, longitude: longitude, mediaUrl: mediaUrl)
+              self.students.append(newStudent)
+            }
+          }
+        }
         completionHandler(result: result, errorString: nil)
       }
     }
@@ -98,7 +110,7 @@ class OTMClient: NSObject {
       if let newError = error {
         completionHandler(success: false, errorString: newError.localizedDescription)
       } else {
-        self.clearStudent()
+        self.clearStudents()
         completionHandler(success: true, errorString: nil)
       }
     }
@@ -192,8 +204,9 @@ class OTMClient: NSObject {
     }
   }
   
-  func clearStudent() {
+  func clearStudents() {
     self.student = nil
+    self.students.removeAll(keepCapacity: false)
   }
   
     

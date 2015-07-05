@@ -105,6 +105,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
       newRegion?.center = newAnnotation.coordinate
     }
 
+    var students = OTMClient.sharedInstance().students
+    self.annotations.removeAll(keepCapacity: false)
+    for student in students {
+      var newAnnotation = MKPointAnnotation()
+        
+      if let latitude = student.latitude, longitude = student.longitude {
+        newAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+      }
+        
+      if let firstName = student.firstName, lastName = student.lastName, mediaUrl = student.mediaUrl {
+        newAnnotation.title = "\(firstName) \(lastName)"
+        newAnnotation.subtitle = "\(mediaUrl)"
+      }
+      self.annotations.append(newAnnotation)
+    }
+    
     dispatch_async(dispatch_get_main_queue(), {
       if let newRegion = newRegion {
         self.MapView.setRegion(newRegion, animated: true)
@@ -124,33 +140,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   
   func loadStudentInformation() {
     OTMClient.sharedInstance().loadStudentLocations() { result, errorString in
-      if let parsedResult = result as? NSDictionary {
-        self.annotations.removeAll(keepCapacity: false)
-        if let results = parsedResult.valueForKey("results") as? NSArray {
-          for entry in results {
-            var newAnnotation = MKPointAnnotation()
-            newAnnotation.coordinate = CLLocationCoordinate2D(latitude: entry["latitude"] as! Double, longitude: entry["longitude"] as! Double)
-            if let firstName = entry["firstName"] as? String {
-              if let lastName = entry["lastName"] as? String {
-                if let mediaUrl = entry["mediaURL"] as? String {
-                  newAnnotation.title = "\(firstName) \(lastName)"
-                  newAnnotation.subtitle = "\(mediaUrl)"
-                  self.annotations.append(newAnnotation)
-                  
-                  NSNotificationCenter.defaultCenter().postNotificationName("refreshMapView", object: nil)
-                }
-              }
-            }
-          } // for
-          return
-        }
-      }
       
       if let error = errorString {
         ErrorViewController.displayError(self, error: error, title: "Load Student Information Failed")
-      } else {
-        ErrorViewController.displayError(self, error: "Unknown Error", title: "Load Student Information Failed")
       }
+      
+      NSNotificationCenter.defaultCenter().postNotificationName("refreshMapView", object: nil)
+
     }
   }
   

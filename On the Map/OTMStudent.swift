@@ -32,4 +32,16 @@ struct OTMStudent {
     self.objectId = nil
     self.update = false
   }
+  
+  init(id: String, firstName: String, lastName: String, latitude: Double, longitude: Double, mediaUrl: String) {
+    self.id = id
+    self.firstName = firstName
+    self.lastName = lastName
+    self.latitude = latitude
+    self.longitude = longitude
+    self.location = nil
+    self.mediaUrl = mediaUrl
+    self.objectId = nil
+    self.update = false
+  }
 }
