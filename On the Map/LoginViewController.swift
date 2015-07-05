@@ -13,7 +13,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var activityView: UIActivityIndicatorView!
   @IBOutlet weak var emailTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
-  @IBOutlet weak var errorTextField: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,6 +47,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
       }
     }
   }
+  
+  @IBAction func signUpUdactiy(sender: AnyObject) {
+    let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
+    var url = NSURL(string: "https://www.udacity.com/account/auth#!/signup")
+    if let url = url as NSURL! {
+      webViewController.urlRequest = NSMutableURLRequest(URL: url)
+    }
+    dispatch_async(dispatch_get_main_queue(), {
+      self.presentViewController(webViewController, animated: true, completion: nil)
+    })
+  }
+  
+  
+  
   
   func textFieldDidBeginEditing(textField: UITextField) {
     textField.text = ""

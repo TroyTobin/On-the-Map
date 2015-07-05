@@ -48,7 +48,6 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
   }
   
   func webViewDidFinishLoad(webView: UIWebView) {
-    println("here")
     self.activityView.hidden = true
     println(webView.request!.URL!.absoluteString!)
   }
