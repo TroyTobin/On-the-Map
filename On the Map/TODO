@@ -1,7 +1,2 @@
-Add functionality to remove a pin
-Use Udacity user id as the "uniqueKey" in the "parse" message
-Segue to map view once pin loaded and centre on that location
-Create an API layer for use with the app
-Separate Views from API code
 Clean up
 Comment
