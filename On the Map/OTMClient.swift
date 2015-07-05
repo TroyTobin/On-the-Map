@@ -38,10 +38,8 @@ class OTMClient: NSObject {
       } else {
         if let parsedResults = result.valueForKey("results") as? NSArray {
           for entry in parsedResults {
-            if let id = entry["uniqueKey"] as? String, firstName = entry["firstName"] as? String, lastName = entry["lastName"] as? String, latitude = entry["latitude"] as? Double, longitude = entry["longitude"] as? Double, mediaUrl = entry["mediaURL"] as? String {
-              var newStudent = OTMStudent(id: id, firstName: firstName, lastName: lastName, latitude: latitude, longitude: longitude, mediaUrl: mediaUrl)
-              self.students.append(newStudent)
-            }
+            var newStudent = OTMStudent(info: entry as! NSDictionary)
+            self.students.append(newStudent)
           }
         }
         completionHandler(result: result, errorString: nil)
@@ -79,11 +77,11 @@ class OTMClient: NSObject {
             if let key = account.valueForKey("key") as? String {
               self.student = OTMStudent(id: key)
               if let student = self.student {
-                self.getStudentInformation(student.id) { result, error in
+                self.getStudentInformation(student.id!) { result, error in
                   if let newError = error {
                     completionHandler(success: false, errorString: newError)
                   } else {
-                    self.findStudentPin(student.id) {
+                    self.findStudentPin(student.id!) {
                       success, errorString in
                       if let newError = errorString {
                         completionHandler(success: false, errorString: newError)

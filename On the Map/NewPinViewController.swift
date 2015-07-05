@@ -32,7 +32,7 @@ class NewPinViewController: UIViewController, UITextViewDelegate {
   
   func checkForUpdate() {
     if let student = OTMClient.sharedInstance().student {
-      OTMClient.sharedInstance().findStudentPin(student.id) { success, errorString in
+      OTMClient.sharedInstance().findStudentPin(student.id!) { success, errorString in
         if success {
           // We'll need to send an update instead of creating a new pin
           OTMClient.sharedInstance().student?.update = true
