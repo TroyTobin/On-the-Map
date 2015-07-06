@@ -52,7 +52,6 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
   /// success loading page
   func webViewDidFinishLoad(webView: UIWebView) {
     self.activityView.hidden = true
-    println(webView.request!.URL!.absoluteString!)
   }
   
   /// failed to load the page
