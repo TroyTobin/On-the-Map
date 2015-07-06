@@ -14,8 +14,8 @@ extension OTMClient {
   // MARK: - Constants
   struct Constants {
     
-    static let ApiKey : String = "ENTER_YOUR_API_KEY_HERE"
-    static let AppId  : String = "ENTER_YOU_APP_KEY_HERE"
+    static let ApiKey : String = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+    static let AppId  : String = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
     
     static let BaseURLUdacity : String = "https://www.udacity.com/api"
     static let BaseURLParse   : String = "https://api.parse.com/1/classes"
