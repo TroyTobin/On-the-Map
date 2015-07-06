@@ -58,7 +58,7 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
   
   /// delegate function to return the count of elements
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return OTMClient.sharedInstance().students.count
+    return OTMClient.sharedInstance().students.count
   }
   
   
@@ -87,7 +87,7 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
     let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
     var student = OTMClient.sharedInstance().students[indexPath.row]
     
-    /// get the url and spws a web view
+    /// get the url and open the web browser
     if let mediaUrl = student.mediaUrl {
       var urlStr = mediaUrl
       if !urlStr.hasPrefix("http://") {
@@ -95,12 +95,11 @@ class StudentTableViewController: UIViewController, UITableViewDataSource, UITab
       }
       var url = NSURL(string: urlStr)
       if let url = url as NSURL! {
-        webViewController.urlRequest = NSMutableURLRequest(URL: url)
+        dispatch_async(dispatch_get_main_queue(), {
+          UIApplication.sharedApplication().openURL(url)
+        })
       }
     }
     
-    dispatch_async(dispatch_get_main_queue(), {
-      self.presentViewController(webViewController, animated: true, completion: nil)
-    })
   }
 }

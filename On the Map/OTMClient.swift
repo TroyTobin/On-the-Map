@@ -19,6 +19,8 @@ class OTMClient: NSObject {
   var student: OTMStudent?
   var otmNet: OTMNetLayer
   
+  var lock: NSLock
+  
   /// Array of all students "On the Map"
   var students = [OTMStudent]()
   
@@ -189,10 +191,10 @@ class OTMClient: NSObject {
   /// submit a new pin location.
   /// This could be a new pin, or an updated pin
   func submitNewPin(completionHandler: (success: Bool, errorString: String?) -> Void) {
-    if let student = student, firstName = student.firstName, lastName = student.lastName, latitude = student.latitude, longitude = student.longitude, location = student.location, media = student.mediaUrl {
+    if let student = student, id = student.id, firstName = student.firstName, lastName = student.lastName, latitude = student.latitude, longitude = student.longitude, location = student.location, media = student.mediaUrl {
       
       /// Set the body for the HTTP request
-      var body = "{\"uniqueKey\": \"\(student.id)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(media)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
+      var body = "{\"uniqueKey\": \"\(id)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(media)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
       
       /// Set the header for the HTTP request
       var header = [OTMClient.ParseHTTPHeader.ContentType, OTMClient.ParseHTTPHeader.APIKey, OTMClient.ParseHTTPHeader.ApplicationId]

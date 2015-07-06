@@ -79,15 +79,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
           urlStr = "http://\(urlStr)"
         }
         
-        /// load the url in the web view
-        let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
+        /// load the url in the web browser
         var url = NSURL(string: urlStr)
         if let url = url as NSURL! {
-          webViewController.urlRequest = NSMutableURLRequest(URL: url)
-        }
         dispatch_async(dispatch_get_main_queue(), {
-          self.presentViewController(webViewController, animated: true, completion: nil)
-        })
+            UIApplication.sharedApplication().openURL(url)
+          })
+        }
       }
     }
 
@@ -157,6 +155,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
   
   /// Load the student information
   func loadStudentInformation() {
+    
     OTMClient.sharedInstance().loadStudentLocations() { result, errorString in
       
       if let error = errorString {
