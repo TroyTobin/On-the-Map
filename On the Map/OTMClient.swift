@@ -19,8 +19,6 @@ class OTMClient: NSObject {
   var student: OTMStudent?
   var otmNet: OTMNetLayer
   
-  var lock: NSLock
-  
   /// Array of all students "On the Map"
   var students = [OTMStudent]()
   
