@@ -10,6 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 
+
+/// Displays map view with student pins
 class MapViewController: UIViewController, MKMapViewDelegate {
   
   @IBOutlet weak var MapView: MKMapView!
@@ -21,32 +23,33 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // Do any additional setup after loading the view, typically from a nib.
     self.MapView.delegate = self
     
+    /// notifications for refreshing the information and refreshing the map view
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshStudentInformation:", name: "refreshView",object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMapView:", name: "refreshMapView",object: nil)
     
+    /// Make sure student information has been loaded
     loadStudentInformation()
   }
   
-  // Here we add disclosure button inside annotation window
+  /// overwrite the annotation view so we can add an info button
   func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
     
-    if annotation is MKUserLocation {
-      //return nil
-      return nil
+    /// Try to get the view
+    var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("studentPin") as? MKPinAnnotationView
+    
+    if let pinView = pinView {
+      // All okay
+    } else {
+      /// create one
+      pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "studentPin")
+      pinView?.canShowCallout = true
+      pinView?.animatesDrop = true
     }
     
-    let reuseId = "pin"
-    var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
-    
-    if pinView == nil {
-      //println("Pinview was nil")
-      pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-      pinView!.canShowCallout = true
-      pinView!.animatesDrop = true
-    }
-    
-    var button = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton // button with info sign in it
+    /// Create a new (i) button for the annotation view
+    var button = UIButton.buttonWithType(UIButtonType.InfoLight) as! UIButton
     if let annotation = annotation as? MKPointAnnotation {
+      /// add the url to the button (invisible) so we can retrieve it later
       var mediaLabel = UILabel()
       mediaLabel.text = annotation.subtitle
       mediaLabel.backgroundColor = UIColor.clearColor()
@@ -54,25 +57,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
       
       button.addSubview(mediaLabel)
     }
+    
+    /// Add the button
     button.addTarget(self, action: "loadMedia:", forControlEvents: UIControlEvents.TouchUpInside)
 
-    
+    /// Add the button to the annotation view
     pinView?.rightCalloutAccessoryView = button
-    
     
     return pinView
   }
   
+  /// Load the media url in the web view
   func loadMedia(sender:UIButton!)
   {
+    /// Find the label (it containes the url)
     for view in sender.subviews {
       if let label = view as? UILabel {
-        println(label.text)
+        /// check if the url starts with http - if not add it
         var urlStr = label.text!
         if !urlStr.hasPrefix("http://") && !urlStr.hasPrefix("https://") {
           urlStr = "http://\(urlStr)"
         }
-
+        
+        /// load the url in the web view
         let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
         var url = NSURL(string: urlStr)
         if let url = url as NSURL! {
@@ -86,14 +93,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
   }
   
+  /// Refresh the map pins by removing them and then loading new information
   func refreshStudentInformation(notification: NSNotification) {
     removeStudentInformation()
     loadStudentInformation()
   }
   
-  
+  /// Re-draw the map views annotations
   func refreshMapView(notification: NSNotification) {
     
+    /// zoom to the users location
     var newRegion: MKCoordinateRegion? = nil
     if let student = OTMClient.sharedInstance().student, latitude = student.latitude, longitude = student.longitude {
       var newAnnotation = MKPointAnnotation()
@@ -106,7 +115,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
     var students = OTMClient.sharedInstance().students
+    
+    /// remove any stale pins
     self.annotations.removeAll(keepCapacity: false)
+    
+    ///for each student create a new pin anootation
     for student in students {
       var newAnnotation = MKPointAnnotation()
         
@@ -122,13 +135,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     dispatch_async(dispatch_get_main_queue(), {
+      
+      /// zoom to users location
       if let newRegion = newRegion {
         self.MapView.setRegion(newRegion, animated: true)
       }
+      /// Add all of the annotations to the view
       self.MapView.addAnnotations(self.annotations)
     })
   }
   
+  /// remove all annotations
   func removeStudentInformation() {
     for annotation in self.MapView.annotations {
       
@@ -138,6 +155,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
   }
   
+  /// Load the student information
   func loadStudentInformation() {
     OTMClient.sharedInstance().loadStudentLocations() { result, errorString in
       
@@ -145,6 +163,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         ErrorViewController.displayError(self, error: error, title: "Load Student Information Failed")
       }
       
+      /// success - notify listeners they can use the data
       NSNotificationCenter.defaultCenter().postNotificationName("refreshMapView", object: nil)
 
     }

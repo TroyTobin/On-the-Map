@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
+/// view controller for view allowing user to input a media url to attach to their pin
 class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
   
   @IBOutlet weak var activityView: UIActivityIndicatorView!
@@ -32,6 +33,7 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
     
     showPinLocation()
     
+    /// add gesture to dismiss the keyboard on single tap
     tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
     tapRecognizer?.numberOfTapsRequired = 1
     addKeyboardDismissRecognizer()
@@ -44,14 +46,17 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
     self.removeKeyboardDismissRecognizer()
   }
   
+  /// add keyboard dismiss recogniser
   func addKeyboardDismissRecognizer() {
     self.view.addGestureRecognizer(tapRecognizer!)
   }
   
+  /// remove keyboard dismiss recogniser
   func removeKeyboardDismissRecognizer() {
     self.view.removeGestureRecognizer(tapRecognizer!)
   }
   
+  /// on single tap, dismiss the keyboard - i.e. end editiing
   func handleSingleTap(recognizer: UITapGestureRecognizer) {
     self.view.endEditing(true)
   }
@@ -62,6 +67,7 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
     return textField.resignFirstResponder()
   }
   
+  /// zoom to the location of the pin when entering the media url
   func showPinLocation() {
     if let student = OTMClient.sharedInstance().student, latitude = student.latitude, longitude = student.longitude {
       var newAnnotation = MKPointAnnotation()
@@ -78,10 +84,12 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
     }
   }
   
+  /// Cancel button pressed so cancel adding the pin
   @IBAction func cancelNewPin(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  /// All data has been entered so submit the new pin
   @IBAction func submitNewPin(sender: AnyObject) {
     if let student = OTMClient.sharedInstance().student {
       
@@ -97,6 +105,8 @@ class MediaPinViewController: UIViewController, MKMapViewDelegate, UITextFieldDe
         })
         
         if success {
+          
+          /// Go back to the map view
           dispatch_async(dispatch_get_main_queue(), {
             let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
             self.presentViewController(controller, animated: true, completion: nil)

@@ -8,6 +8,7 @@
 
 import Foundation
 
+//// Sets constants for the OTM Client in this extension
 extension OTMClient {
   
   // MARK: - Constants

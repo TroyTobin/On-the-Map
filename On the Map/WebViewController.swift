@@ -10,6 +10,7 @@
 
 import UIKit
 
+/// Web view
 class WebViewController: UIViewController, UIWebViewDelegate  {
   
   
@@ -26,7 +27,7 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
     self.sadImage.hidden = true
     self.activityView.hidden = false
     
-    
+    /// set defaults and style for error field
     errorTextField.text = ""
     errorTextField.font = UIFont(name: "AvenirNext-Medium", size: 20)
     errorTextField.textColor = UIColor.blackColor()
@@ -38,6 +39,7 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
     
     super.viewWillAppear(animated)
     
+    /// if there is a valid url try to load it
     if let urlRequest = urlRequest {
       self.webView.loadRequest(urlRequest)
     }
@@ -47,16 +49,18 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
     }
   }
   
+  /// success loading page
   func webViewDidFinishLoad(webView: UIWebView) {
     self.activityView.hidden = true
     println(webView.request!.URL!.absoluteString!)
   }
   
+  /// failed to load the page
   func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
     displayError(error.localizedDescription)
   }
   
-  
+  /// Set the error on the web view and a sad face :(
   func displayError(error: String) {
     self.activityView.hidden = true
     dispatch_async(dispatch_get_main_queue(), {
@@ -66,6 +70,7 @@ class WebViewController: UIViewController, UIWebViewDelegate  {
     })
   }
   
+  /// dismiss the view
   @IBAction func doneWithView(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
     

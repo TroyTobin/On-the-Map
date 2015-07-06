@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Initial view for logging into the application
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
   @IBOutlet weak var activityView: UIActivityIndicatorView!
@@ -25,6 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     passwordTextField.delegate = self
     activityView.hidden = true
     
+    /// dismiss the keyboard with single tap
     tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
     tapRecognizer?.numberOfTapsRequired = 1
     addKeyboardDismissRecognizer()
@@ -37,28 +39,34 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     self.removeKeyboardDismissRecognizer()
   }
 
+  /// add the keyboard dismiss recogniser
   func addKeyboardDismissRecognizer() {
     self.view.addGestureRecognizer(tapRecognizer!)
   }
 
+  /// remove the keyboard dismiss recogniser
   func removeKeyboardDismissRecognizer() {
     self.view.removeGestureRecognizer(tapRecognizer!)
   }
 
+  /// dismiss the keyboard (end editiing) with single tap gesture
   func handleSingleTap(recognizer: UITapGestureRecognizer) {
     self.view.endEditing(true)
   }
 
-
+  /// dismiss the keyboard
   func textFieldShouldReturn(textField: UITextField) -> Bool {
-    /// dismiss the keyboard
     return textField.resignFirstResponder()
   }
   
+  /// Login via udacity
   @IBAction func loginButtonPressed(sender: AnyObject) {
     self.view.endEditing(true)
+    
+    /// display the activity view to show the user something is happening
     self.activityView.hidden = false
 
+    /// Use the OTM Client to log in
     OTMClient.sharedInstance().loginUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
       
       dispatch_async(dispatch_get_main_queue(), {
@@ -66,11 +74,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
       })
       
       if success {
+        /// log in was successful so enter the app and show the first screen
         dispatch_async(dispatch_get_main_queue(), {
           let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OnTheMapNavigationController") as! UINavigationController
           self.presentViewController(controller, animated: true, completion: nil)
         })
 
+        /// display any errors
       } else if let error = errorString {
         ErrorViewController.displayError(self, error: error, title: "Login Failed")
       } else {
@@ -79,6 +89,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
   }
   
+  
+  /// Sign up to udacity via web view
   @IBAction func signUpUdactiy(sender: AnyObject) {
     let webViewController = self.storyboard!.instantiateViewControllerWithIdentifier("MediaWebViewController") as! WebViewController
     var url = NSURL(string: "https://www.udacity.com/account/auth#!/signup")
@@ -90,9 +102,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     })
   }
   
-  
-  
-  
+  /// Clear any defaults when the user starts editing
   func textFieldDidBeginEditing(textField: UITextField) {
     textField.text = ""
     if(textField == passwordTextField){

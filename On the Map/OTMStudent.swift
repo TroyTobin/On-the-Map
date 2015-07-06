@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// This class represents a single meme
+/// This struct represents a single student
 struct OTMStudent {
   var id: String?
   var firstName: String?
@@ -20,7 +20,7 @@ struct OTMStudent {
   var objectId: String?
   var update: Bool
   
-  
+  /// Initialise with only an ID
   init(id: String) {
     self.id = id
     self.firstName = nil
@@ -33,6 +33,7 @@ struct OTMStudent {
     self.update = false
   }
   
+  /// Initialise with all parameters named
   init(id: String, firstName: String, lastName: String, latitude: Double, longitude: Double, mediaUrl: String) {
     self.id = id
     self.firstName = firstName
@@ -45,7 +46,9 @@ struct OTMStudent {
     self.update = false
   }
   
+  /// Initialise with a JSON dictionary
   init(info: NSDictionary) {
+    /// Only set values if all are present - no point have filling in a students information
     if let id = info["uniqueKey"] as? String, firstName = info["firstName"] as? String, lastName = info["lastName"] as? String, latitude = info["latitude"] as? Double, longitude = info["longitude"] as? Double, mediaUrl = info["mediaURL"] as? String {
       self.id = id
       self.firstName = firstName
